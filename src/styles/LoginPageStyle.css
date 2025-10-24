@@ -1,0 +1,89 @@
+section {
+    display: flex;
+    width: auto;
+    height: 100%;
+}
+
+section>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+section>div:first-child {
+    width: 100%;
+    background: linear-gradient(to bottom, #003366, #001F3F);
+}
+
+section>div:first-child>p {
+    font-size: 2rem;
+}
+
+
+section>div:last-child {
+    min-width: 40vw;
+    background-image: url("../assets/background_pattern.png");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+#Card {
+    background-color: #FFFFFF;
+    min-width: fit-content;
+    outline: 2px solid #E2E8F0;
+    border-radius: 10px;
+    width: 20vw;
+    padding: 2rem;
+}
+
+#Card p {
+    color: #717182;
+}
+
+#Card>P {
+    text-align: center;
+}
+
+#Card p>span {
+    color: #003366;
+}
+
+#Card>div:nth-child(4) {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+img {
+    min-width: 2vw;
+    max-width: 20vw;
+    aspect-ratio: 1 / 1;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border-radius: 10px;
+}
+
+button>img {
+    min-width: 1vw;
+    max-width: 1vw;
+    aspect-ratio: 1 / 1;
+    padding: 5px;
+}
+
+#Card>button:first-of-type {
+    background-color: #003366;
+}
+
+#Card>button:last-of-type {
+    background-color: #FFFFFF;
+    outline: 2px solid #E2E8F0;
+    color: #0A0A0A;
+}
