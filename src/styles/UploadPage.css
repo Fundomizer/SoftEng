@@ -1,0 +1,441 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #f5f7fa;
+}
+
+#upload-page {
+    min-height: 100vh;
+    background-color: #f5f7fa;
+}
+
+/* Header */
+#header {
+    background: linear-gradient(135deg, #003d73 0%, #005a9e 100%);
+    color: white;
+    padding: 1.25rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* remove explicit 100% width (it can cause overflow with viewport-based child widths) */
+    box-sizing: border-box;
+}
+
+#header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#logo {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#logo img {
+    width: 100px;
+    height: auto;
+}
+
+#header-text h1 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: white;
+}
+
+#header-text p {
+    font-size: 0.875rem;
+    opacity: 0.9;
+    color: white;
+}
+
+#header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-left: 30rem;
+}
+
+#tokens-badge {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 0.625rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+#token-icon {
+    font-size: 1.5rem;
+}
+
+#tokens-label {
+    font-size: 0.75rem;
+    opacity: 0.9;
+}
+
+#tokens-count {
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+#logout-btn {
+    background-color: #dc2626;
+    color: white;
+    border: none;
+    padding: 0.625rem 1.5rem;
+    border-radius: 6px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#logout-btn:hover {
+    background-color: #b91c1c;
+}
+
+/* Stats Container */
+#stats-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+#stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+#stat-label {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+#stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 0.75rem;
+}
+
+#stat-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+#stat-badge.review {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+#stat-badge.ready {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+#stat-badge.done {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+#stat-badge.denied {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+/* Tabs */
+#tabs {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+#tab-btn {
+    background: white;
+    background-color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px 8px 0 0;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: #6b7280;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
+    border-bottom: 2px solid transparent;
+}
+
+#tab-btn:hover {
+    color: #003d73;
+    background-color: #f9fafb;
+}
+
+#tab-btn.active {
+    background-color: #003d73;
+    color: white;
+}
+
+#tab-icon {
+    font-size: 1rem;
+}
+
+/* Content */
+#content {
+    background: white;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 0 8px 8px 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#form-section h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+#form-description {
+    color: #6b7280;
+    font-size: 0.9375rem;
+    margin-bottom: 2rem;
+}
+
+/* Form Groups */
+#form-group {
+    margin-bottom: 2rem;
+}
+
+#form-group label {
+    display: block;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.75rem;
+}
+
+/* Upload Area */
+#upload-area {
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    padding: 3rem;
+    text-align: center;
+    background-color: #f9fafb;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+#upload-area:hover,
+#upload-area.drag-active {
+    border-color: #003d73;
+    background-color: #eff6ff;
+}
+
+#upload-label {
+    cursor: pointer;
+}
+
+#upload-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+#upload-text {
+    font-size: 1rem;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+#upload-subtext {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+/* Text Input */
+#text-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 0.9375rem;
+    transition: all 0.2s;
+}
+
+#text-input:focus {
+    outline: none;
+    border-color: #003d73;
+    box-shadow: 0 0 0 3px rgba(0, 61, 115, 0.1);
+}
+
+#text-input::placeholder {
+    color: #9ca3af;
+}
+
+/* Option Grid
+Support markup that sets an id with tokens (e.g. id="option-grid two-col").
+Using attribute selectors lets us avoid changing the JSX to add className.
+*/
+[id*="option-grid"] {
+    display: grid;
+    gap: 1rem;
+    width: 100%;
+}
+
+[id*="option-grid"][id*="two-col"] {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+[id*="option-grid"][id*="three-col"] {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+#option-btn {
+    background: #f9fafb;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+#option-btn:hover {
+    border-color: #003d73;
+    background-color: #eff6ff;
+}
+
+#option-btn.selected {
+    border-color: #003d73;
+    background-color: #eff6ff;
+    box-shadow: 0 0 0 3px rgba(0, 61, 115, 0.1);
+}
+
+#option-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.25rem;
+}
+
+#option-subtitle {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+#option-cost {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+}
+
+/* Submit Button */
+#submit-btn {
+    width: 100%;
+    background-color: #003d73;
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: background-color 0.2s;
+    margin-top: 2rem;
+}
+
+#submit-btn:hover {
+    background-color: #002952;
+}
+
+#submit-icon {
+    font-size: 1.125rem;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    #stats-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* make three-col collapse to two columns on medium screens */
+    [id*="option-grid"][id*="three-col"] {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #header-right {
+        padding-left: 0;
+    }
+}
+
+
+@media (max-width: 1024px) {
+    #stats-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* make three-col collapse to two columns on medium screens */
+    [id*="option-grid"][id*="three-col"] {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    #header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    #stats-container {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+
+    #tabs {
+        padding: 0 1rem;
+    }
+
+    #content {
+        padding: 1rem;
+    }
+
+    /* stack option grids on small screens */
+    [id*="option-grid"][id*="two-col"],
+    [id*="option-grid"][id*="three-col"] {
+        grid-template-columns: 1fr;
+    }
+}
