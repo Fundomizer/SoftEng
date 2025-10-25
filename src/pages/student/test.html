@@ -1,0 +1,69 @@
+import React from "react";
+import image from "./image.svg";
+import "./style.css";
+import vector2 from "./vector-2.svg";
+import vector3 from "./vector-3.svg";
+import vector4 from "./vector-4.svg";
+import vector5 from "./vector-5.svg";
+import vector6 from "./vector-6.svg";
+import vector from "./vector.svg";
+
+export const Header = () => {
+    return (
+        <div className="header">
+            <div className="container">
+                <div className="div">
+                    <div className="image-saint-louis" />
+
+                    <div className="container-2">
+                        <div className="heading">
+                            <div className="text-wrapper">
+                                Student Printing Service Portal
+                            </div>
+                        </div>
+
+                        <div className="paragraph">
+                            <div className="text-wrapper-2">Dyslecxic Pares</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="container-3">
+                    <div className="container-4">
+                        <div className="icon">
+                            <img className="vector" alt="Vector" src={vector} />
+
+                            <img className="img" alt="Vector" src={image} />
+
+                            <img className="vector-2" alt="Vector" src={vector2} />
+
+                            <img className="vector-3" alt="Vector" src={vector3} />
+                        </div>
+
+                        <div className="container-5">
+                            <div className="paragraph">
+                                <div className="text-wrapper-2">Available Tokens</div>
+                            </div>
+
+                            <div className="paragraph">
+                                <div className="text-wrapper-3">250</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button className="button">
+                        <div className="icon-2">
+                            <img className="vector-4" alt="Vector" src={vector4} />
+
+                            <img className="vector-5" alt="Vector" src={vector5} />
+
+                            <img className="vector-6" alt="Vector" src={vector6} />
+                        </div>
+
+                        <div className="text-wrapper-4">Logout</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};

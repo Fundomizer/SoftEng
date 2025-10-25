@@ -9,6 +9,7 @@ div {
 }
 
 input {
+    color: black;
     background-color: #F3F3F5;
     outline: 2px solid #E2E8F0;
     border-width: 0px;
