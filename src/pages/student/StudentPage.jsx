@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import "/src/styles/UploadPage.css";
+import { useNavigate } from 'react-router-dom';
+import "/src/styles/StudentPageStyle.css";
+import "/src/pages/login/LoginPage.jsx"
 
-export const UploadPage = () => {
+export const StudentPage = () => {
     const [activeTab, setActiveTab] = useState('upload');
     const [dragActive, setDragActive] = useState(false);
     const [documentName, setDocumentName] = useState('');
@@ -9,6 +11,8 @@ export const UploadPage = () => {
     const [colorMode, setColorMode] = useState('bw');
     const [paperSize, setPaperSize] = useState('a4');
     const [hasImages, setHasImages] = useState('no');
+
+    const navigate = useNavigate();
 
     const handleDrag = (e) => {
         e.preventDefault();
@@ -37,6 +41,13 @@ export const UploadPage = () => {
         setActiveTab(activeTab)
     }
 
+    const [showPopup, setShowPopup] = useState(false);
+
+    const handleLogout = () => {
+        navigate('login')
+        setShowPopup(false);
+    };
+
     return (
         <div id="upload-page">
             <header id="header">
@@ -57,7 +68,7 @@ export const UploadPage = () => {
                             <div id="tokens-count">250</div>
                         </div>
                     </div>
-                    <button id="logout-btn">Logout</button>
+                    <button id="logout-btn" onClick={() => setShowPopup(true)}>Logout</button>
                 </div>
             </header>
 
@@ -392,11 +403,106 @@ export const UploadPage = () => {
                         <button id="page-2">2</button>
                         <button id="page-next">Next ›</button>
                     </div>
-                    
+
                 </div>
 
+                <div className={activeTab === 'history' ? 'content' : 'hidden'}>
 
+                    <h3 class="section-subtitle">Print History</h3>
+                    <p class="section-description">Complete history of all your print requests</p>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Document</th>
+                                    <th>Pages</th>
+                                    <th>Mode</th>
+                                    <th>Tokens</th>
+                                    <th>Status</th>
+                                    <th>Submitted</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="document-cell">
+                                            <span class="document-title">Research Paper - AI Ethics</span>
+                                            <span class="document-filename">ai-ethics-paper.pdf</span>
+                                        </div>
+                                    </td>
+                                    <td>12</td>
+                                    <td>B&W + Images</td>
+                                    <td>24</td>
+                                    <td><span class="status-badge status-pending">Pending</span></td>
+                                    <td>Oct 22, 2025, 09:30 AM</td>
+                                    <td><button class="delete-btn">🗑️</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="document-cell">
+                                            <span class="document-title">Assignment 3 - Data Structures</span>
+                                            <span class="document-filename">assignment3.pdf</span>
+                                        </div>
+                                    </td>
+                                    <td>8</td>
+                                    <td>B&W</td>
+                                    <td>8</td>
+                                    <td><span class="status-badge status-approved">Approved</span></td>
+                                    <td>Oct 21, 2025, 02:20 PM</td>
+                                    <td><button class="delete-btn">🗑️</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="document-cell">
+                                            <span class="document-title">Presentation Slides</span>
+                                            <span class="document-filename">presentation.pdf</span>
+                                        </div>
+                                    </td>
+                                    <td>15</td>
+                                    <td>Color + Images</td>
+                                    <td>60</td>
+                                    <td><span class="status-badge status-printed">Printed</span></td>
+                                    <td>Oct 20, 2025, 10:00 AM</td>
+                                    <td><button class="delete-btn">🗑️</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="document-cell">
+                                            <span class="document-title">Lab Report - Chemistry</span>
+                                            <span class="document-filename">chem-lab-report.pdf</span>
+                                        </div>
+                                    </td>
+                                    <td>10</td>
+                                    <td>B&W + Images</td>
+                                    <td>20</td>
+                                    <td><span class="status-badge status-rejected">Rejected</span></td>
+                                    <td>Oct 19, 2025, 11:00 AM</td>
+                                    <td><button class="delete-btn">🗑️</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="pagination">
+                        <button id="page-prev" disabled>‹ Previous</button>
+                        <button id="page-1">1</button>
+                        <button id="page-2">2</button>
+                        <button id="page-next">Next ›</button>
+                    </div>
+                </div>
             </div>
+
+            {showPopup && (
+                <div className="overlay">
+                    <div className="popup">
+                        <p>Are you sure you want to logout?</p>
+                        <button onClick={handleLogout} className="confirm">Yes</button>
+                        <button onClick={() => setShowPopup(false)} className="cancel">Cancel</button>
+                    </div>
+                </div>
+            )}
+
         </div>
     );
 };

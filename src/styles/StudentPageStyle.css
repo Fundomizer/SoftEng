@@ -591,6 +591,181 @@ Using attribute selectors lets us avoid changing the JSX to add className.
     font-weight: 600;
 }
 
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup {
+    color: black;
+    max-width: 20vw;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    gap: 10px;
+}
+
+.confirm {
+    margin-right: 10px;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+.cancel {
+    background-color: #003d73;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* History Section */
+.history-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.history-header h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.history-header p {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+.tokens-used {
+    background-color: #f8f9fa;
+    padding: 1rem 1.5rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.tokens-used strong {
+    font-weight: 600;
+}
+
+.section-subtitle {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.section-description {
+    margin-bottom: 1.5rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Table Styles */
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #f8f9fa;
+}
+
+th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #333;
+    font-size: 0.9rem;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+td {
+    padding: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+    color: #333;
+}
+
+.document-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.document-title {
+    font-weight: 500;
+}
+
+.document-filename {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.status-pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-approved {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-printed {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.status-rejected {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+
 @media (max-width: 1024px) {
     #stats-container {
         grid-template-columns: repeat(2, 1fr);
