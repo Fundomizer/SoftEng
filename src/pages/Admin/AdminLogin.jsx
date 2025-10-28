@@ -1,14 +1,20 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { TextInput } from "../../components/TextInput"
 import "../../styles/LoginPageStyle.css"
 
-export function LoginPage() {
+export function AdminLogin() {
+    const navigate = useNavigate()
+
+    const handleSignIn = () => {
+        navigate('/admin/dashboard')
+    }
+
     return (
         <section>
             <div>
                 <img src="/src/assets/slu_logo.png" alt="SLU logo" />
                 <h1>Saint Louis University</h1>
-                <p>Student Printing Services</p>
+                <p>Admin Printing Service Portal</p>
             </div>
             <div>
                 <div id="Card">
@@ -21,7 +27,7 @@ export function LoginPage() {
                     <div>
                         <p><a href="">Forgot password?</a></p>
                     </div>
-                    <button>
+                    <button onClick={handleSignIn}>
                         <img src="/src/assets/icons/login_icon.png" alt="sign in using google" />
                         Sign In to Portal
                     </button>
@@ -31,8 +37,8 @@ export function LoginPage() {
                         Sign in with Google
                     </button>
                     <p style={{ marginTop: '20px', textAlign: 'center' }}>
-                        <Link to="/admin" style={{ color: '#003366', textDecoration: 'underline' }}>
-                            Go to Admin Portal (Testing)
+                        <Link to="/" style={{ color: '#003366', textDecoration: 'underline' }}>
+                            Go to Student Portal (Testing)
                         </Link>
                     </p>
                 </div>
