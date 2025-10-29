@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import "/src/styles/StudentPageStyle.css";
-import "/src/pages/login/LoginPage.jsx"
+import "/src/pages/login/LoginPage.jsx";
 
 export const StudentPage = () => {
-    const [activeTab, setActiveTab] = useState('upload');
+    const [activeTab, setActiveTab] = useState("upload");
     const [dragActive, setDragActive] = useState(false);
-    const [documentName, setDocumentName] = useState('');
-    const [numPages, setNumPages] = useState('');
-    const [colorMode, setColorMode] = useState('bw');
-    const [paperSize, setPaperSize] = useState('a4');
-    const [hasImages, setHasImages] = useState('no');
+    const [documentName, setDocumentName] = useState("");
+    const [numPages, setNumPages] = useState("");
+    const [colorMode, setColorMode] = useState("bw");
+    const [paperSize, setPaperSize] = useState("a4");
+    const [hasImages, setHasImages] = useState("no");
 
     const navigate = useNavigate();
 
@@ -38,13 +38,13 @@ export const StudentPage = () => {
     };
 
     function updateActiveTab(activeTab) {
-        setActiveTab(activeTab)
+        setActiveTab(activeTab);
     }
 
     const [showPopup, setShowPopup] = useState(false);
 
     const handleLogout = () => {
-        navigate('login')
+        navigate("login");
         setShowPopup(false);
     };
 
@@ -56,8 +56,8 @@ export const StudentPage = () => {
                         <img src="/src/assets/slu_logo.png" alt="SLU-logo" />
                     </div>
                     <div id="header-text">
-                        <h1>Student Printing Service Portal</h1>
-                        <p>Dyslexcic Pares</p>
+                        <h1>Get Faxed: Student Printing Service Portal</h1>
+                        <p>User</p>
                     </div>
                 </div>
                 <div id="header-right">
@@ -68,7 +68,9 @@ export const StudentPage = () => {
                             <div id="tokens-count">250</div>
                         </div>
                     </div>
-                    <button id="logout-btn" onClick={() => setShowPopup(true)}>Logout</button>
+                    <button id="logout-btn" onClick={() => setShowPopup(true)}>
+                        Logout
+                    </button>
                 </div>
             </header>
 
@@ -98,24 +100,27 @@ export const StudentPage = () => {
             <div id="tabs">
                 <button
                     id="tab-btn"
-                    className={activeTab === 'upload' ? 'active' : ''}
-                    onClick={() => { setActiveTab('upload'); updateActiveTab('upload') }}
+                    className={activeTab === "upload" ? "active" : ""}
+                    onClick={() => {
+                        setActiveTab("upload");
+                        updateActiveTab("upload");
+                    }}
                 >
                     <span id="tab-icon">⬆️</span>
                     Upload
                 </button>
                 <button
                     id="tab-btn"
-                    className={activeTab === 'queue' ? 'active' : ''}
-                    onClick={() => setActiveTab('queue')}
+                    className={activeTab === "queue" ? "active" : ""}
+                    onClick={() => setActiveTab("queue")}
                 >
                     <span id="tab-icon">🖨️</span>
                     Queue
                 </button>
                 <button
                     id="tab-btn"
-                    className={activeTab === 'history' ? 'active' : ''}
-                    onClick={() => setActiveTab('history')}
+                    className={activeTab === "history" ? "active" : ""}
+                    onClick={() => setActiveTab("history")}
                 >
                     <span id="tab-icon">🕐</span>
                     History
@@ -123,14 +128,16 @@ export const StudentPage = () => {
             </div>
 
             <div id="content">
-                <div className={activeTab === 'upload' ? 'content' : 'hidden'}>
+                <div className={activeTab === "upload" ? "content" : "hidden"}>
                     <h2>Submit New Print Request</h2>
-                    <p id="form-description">Upload your document and provide print job details</p>
+                    <p id="form-description">
+                        Upload your document and provide print job details
+                    </p>
 
                     <div id="form-group">
                         <label>Upload Document (PDF/DOC)</label>
                         <div
-                            className={`upload-area ${dragActive ? 'drag-active' : ''}`}
+                            className={`upload-area ${dragActive ? "drag-active" : ""}`}
                             onDragEnter={handleDrag}
                             onDragLeave={handleDrag}
                             onDragOver={handleDrag}
@@ -141,7 +148,7 @@ export const StudentPage = () => {
                                 id="file-upload"
                                 accept=".pdf,.doc,.docx"
                                 onChange={handleFileChange}
-                                style={{ display: 'none' }}
+                                style={{ display: "none" }}
                             />
                             <label htmlFor="file-upload" id="upload-label">
                                 <div id="upload-icon">⬆️</div>
@@ -178,16 +185,16 @@ export const StudentPage = () => {
                         <div id="option-grid two-col">
                             <button
                                 id="option-btn"
-                                className={colorMode === 'bw' ? 'selected' : ''}
-                                onClick={() => setColorMode('bw')}
+                                className={colorMode === "bw" ? "selected" : ""}
+                                onClick={() => setColorMode("bw")}
                             >
                                 <div id="option-title">Black & White</div>
                                 <div id="option-cost">1 token/page</div>
                             </button>
                             <button
                                 id="option-btn"
-                                className={colorMode === 'color' ? 'selected' : ''}
-                                onClick={() => setColorMode('color')}
+                                className={colorMode === "color" ? "selected" : ""}
+                                onClick={() => setColorMode("color")}
                             >
                                 <div id="option-title">Color</div>
                                 <div id="option-cost">4 tokens/page</div>
@@ -200,24 +207,24 @@ export const StudentPage = () => {
                         <div id="option-grid three-col">
                             <button
                                 id="option-btn"
-                                className={paperSize === 'a4' ? 'selected' : ''}
-                                onClick={() => setPaperSize('a4')}
+                                className={paperSize === "a4" ? "selected" : ""}
+                                onClick={() => setPaperSize("a4")}
                             >
                                 <div id="option-title">A4</div>
                                 <div id="option-subtitle">210×297mm</div>
                             </button>
                             <button
                                 id="option-btn"
-                                className={paperSize === 'letter' ? 'selected' : ''}
-                                onClick={() => setPaperSize('letter')}
+                                className={paperSize === "letter" ? "selected" : ""}
+                                onClick={() => setPaperSize("letter")}
                             >
                                 <div id="option-title">Letter</div>
                                 <div id="option-subtitle">8.5×11in</div>
                             </button>
                             <button
                                 id="option-btn"
-                                className={paperSize === 'legal' ? 'selected' : ''}
-                                onClick={() => setPaperSize('legal')}
+                                className={paperSize === "legal" ? "selected" : ""}
+                                onClick={() => setPaperSize("legal")}
                             >
                                 <div id="option-title">Legal</div>
                                 <div id="option-subtitle">8.5×14in</div>
@@ -230,15 +237,15 @@ export const StudentPage = () => {
                         <div id="option-grid two-col">
                             <button
                                 id="option-btn"
-                                className={hasImages === 'no' ? 'selected' : ''}
-                                onClick={() => setHasImages('no')}
+                                className={hasImages === "no" ? "selected" : ""}
+                                onClick={() => setHasImages("no")}
                             >
                                 <div id="option-title">No Images</div>
                             </button>
                             <button
                                 id="option-btn"
-                                className={hasImages === 'yes' ? 'selected' : ''}
-                                onClick={() => setHasImages('yes')}
+                                className={hasImages === "yes" ? "selected" : ""}
+                                onClick={() => setHasImages("yes")}
                             >
                                 <div id="option-title">Has Images</div>
                                 <div id="option-cost">+1 token/page</div>
@@ -252,11 +259,13 @@ export const StudentPage = () => {
                     </button>
                 </div>
 
-                <div className={activeTab === 'queue' ? 'content' : 'hidden'}>
+                <div className={activeTab === "queue" ? "content" : "hidden"}>
                     <div id="section-header">
                         <h2>Print Queue</h2>
                     </div>
-                    <p id="section-subtitle">All pending print requests (Anonymized for privacy)</p>
+                    <p id="section-subtitle">
+                        All pending print requests (Anonymized for privacy)
+                    </p>
 
                     <div id="job-000049" class="print-job-card">
                         <div class="job-header">
@@ -287,9 +296,7 @@ export const StudentPage = () => {
                                 <span class="detail-value">24</span>
                             </div>
                         </div>
-                        <div class="job-footer">
-                            Submitted: Oct 22, 09:30 AM
-                        </div>
+                        <div class="job-footer">Submitted: Oct 22, 09:30 AM</div>
                     </div>
 
                     <div id="job-000050" class="print-job-card">
@@ -393,23 +400,26 @@ export const StudentPage = () => {
                             Submitted: Oct 19, 11:00 AM • Reviewed: Oct 19, 02:30 PM
                         </div>
                         <div class="rejection-reason">
-                            Rejection reason: Document exceeds the maximum page limit for single submission. Please split into multiple requests.
+                            Rejection reason: Document exceeds the maximum page limit for
+                            single submission. Please split into multiple requests.
                         </div>
                     </div>
 
                     <div id="pagination">
-                        <button id="page-prev" disabled>‹ Previous</button>
+                        <button id="page-prev" disabled>
+                            ‹ Previous
+                        </button>
                         <button id="page-1">1</button>
                         <button id="page-2">2</button>
                         <button id="page-next">Next ›</button>
                     </div>
-
                 </div>
 
-                <div className={activeTab === 'history' ? 'content' : 'hidden'}>
-
+                <div className={activeTab === "history" ? "content" : "hidden"}>
                     <h3 class="section-subtitle">Print History</h3>
-                    <p class="section-description">Complete history of all your print requests</p>
+                    <p class="section-description">
+                        Complete history of all your print requests
+                    </p>
 
                     <div class="table-wrapper">
                         <table>
@@ -428,30 +438,42 @@ export const StudentPage = () => {
                                 <tr>
                                     <td>
                                         <div class="document-cell">
-                                            <span class="document-title">Research Paper - AI Ethics</span>
+                                            <span class="document-title">
+                                                Research Paper - AI Ethics
+                                            </span>
                                             <span class="document-filename">ai-ethics-paper.pdf</span>
                                         </div>
                                     </td>
                                     <td>12</td>
                                     <td>B&W + Images</td>
                                     <td>24</td>
-                                    <td><span class="status-badge status-pending">Pending</span></td>
+                                    <td>
+                                        <span class="status-badge status-pending">Pending</span>
+                                    </td>
                                     <td>Oct 22, 2025, 09:30 AM</td>
-                                    <td><button class="delete-btn">🗑️</button></td>
+                                    <td>
+                                        <button class="delete-btn">🗑️</button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <div class="document-cell">
-                                            <span class="document-title">Assignment 3 - Data Structures</span>
+                                            <span class="document-title">
+                                                Assignment 3 - Data Structures
+                                            </span>
                                             <span class="document-filename">assignment3.pdf</span>
                                         </div>
                                     </td>
                                     <td>8</td>
                                     <td>B&W</td>
                                     <td>8</td>
-                                    <td><span class="status-badge status-approved">Approved</span></td>
+                                    <td>
+                                        <span class="status-badge status-approved">Approved</span>
+                                    </td>
                                     <td>Oct 21, 2025, 02:20 PM</td>
-                                    <td><button class="delete-btn">🗑️</button></td>
+                                    <td>
+                                        <button class="delete-btn">🗑️</button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -463,9 +485,13 @@ export const StudentPage = () => {
                                     <td>15</td>
                                     <td>Color + Images</td>
                                     <td>60</td>
-                                    <td><span class="status-badge status-printed">Printed</span></td>
+                                    <td>
+                                        <span class="status-badge status-printed">Printed</span>
+                                    </td>
                                     <td>Oct 20, 2025, 10:00 AM</td>
-                                    <td><button class="delete-btn">🗑️</button></td>
+                                    <td>
+                                        <button class="delete-btn">🗑️</button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -477,15 +503,21 @@ export const StudentPage = () => {
                                     <td>10</td>
                                     <td>B&W + Images</td>
                                     <td>20</td>
-                                    <td><span class="status-badge status-rejected">Rejected</span></td>
+                                    <td>
+                                        <span class="status-badge status-rejected">Rejected</span>
+                                    </td>
                                     <td>Oct 19, 2025, 11:00 AM</td>
-                                    <td><button class="delete-btn">🗑️</button></td>
+                                    <td>
+                                        <button class="delete-btn">🗑️</button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div id="pagination">
-                        <button id="page-prev" disabled>‹ Previous</button>
+                        <button id="page-prev" disabled>
+                            ‹ Previous
+                        </button>
                         <button id="page-1">1</button>
                         <button id="page-2">2</button>
                         <button id="page-next">Next ›</button>
@@ -497,12 +529,15 @@ export const StudentPage = () => {
                 <div className="overlay">
                     <div className="popup">
                         <p>Are you sure you want to logout?</p>
-                        <button onClick={handleLogout} className="confirm">Yes</button>
-                        <button onClick={() => setShowPopup(false)} className="cancel">Cancel</button>
+                        <button onClick={handleLogout} className="confirm">
+                            Yes
+                        </button>
+                        <button onClick={() => setShowPopup(false)} className="cancel">
+                            Cancel
+                        </button>
                     </div>
                 </div>
             )}
-
         </div>
     );
 };
