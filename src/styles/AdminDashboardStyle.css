@@ -1,0 +1,104 @@
+.admin-dashboard {
+    background-color: #ffffff;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.admin-dashboard__header {
+    background-color: #003366;
+    color: white;
+    padding: 0.75rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: space-between;
+}
+
+.admin-dashboard__header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.admin-dashboard__header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.admin-dashboard__counter {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.6rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.admin-dashboard__logout-btn {
+    background-color: transparent;
+    color: #ff4444;
+    border: 1px solid #ff4444;
+    padding: 0.6rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.admin-dashboard__logout-btn:hover {
+    background-color: #ff4444;
+    color: white;
+}
+
+.admin-dashboard__header img {
+    height: 80px;
+    width: auto;
+}
+
+.admin-dashboard__header h1 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+.admin-dashboard__content {
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.admin-dashboard__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    margin-bottom: 2rem;
+}
+
+.admin-dashboard__card {
+    background-color: #ffffff;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    padding: 1.25rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.admin-dashboard__card h3 {
+    color: #003366;
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+}
+
+.admin-dashboard__card p {
+    color: #717182;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}

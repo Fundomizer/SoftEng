@@ -2,13 +2,11 @@ import { Link, useNavigate } from "react-router-dom"
 import { TextInput } from "../../components/TextInput"
 import "../../styles/LoginPageStyle.css"
 
-export function LoginPage() {
+export function AdminLogin() {
     const navigate = useNavigate()
 
-    const handleLogin = () => {
-        // Add your authentication logic here
-        // For now, it will navigate to student page
-        navigate('/student')
+    const handleSignIn = () => {
+        navigate('/admin/dashboard')
     }
 
     return (
@@ -16,7 +14,7 @@ export function LoginPage() {
             <div>
                 <img src="/src/assets/slu_logo.png" alt="SLU logo" />
                 <h1>Saint Louis University</h1>
-                <p>Student Printing Services</p>
+                <p>Admin Printing Service Portal</p>
             </div>
             <div>
                 <div id="Card">
@@ -29,18 +27,18 @@ export function LoginPage() {
                     <div>
                         <p><a href="">Forgot password?</a></p>
                     </div>
-                    <button onClick={handleLogin}>
+                    <button onClick={handleSignIn}>
                         <img src="/src/assets/icons/login_icon.png" alt="sign in using google" />
                         Sign In to Portal
                     </button>
                     <p>or</p>
-                    <button onClick={handleLogin}>
+                    <button>
                         <img src="/src/assets/icons/google_icon.png" alt="sign in icon" />
                         Sign in with Google
                     </button>
                     <p style={{ marginTop: '20px', textAlign: 'center' }}>
-                        <Link to="/admin" style={{ color: '#003366', textDecoration: 'underline' }}>
-                            Go to Admin Portal (Testing)
+                        <Link to="/" style={{ color: '#003366', textDecoration: 'underline' }}>
+                            Go to Student Portal (Testing)
                         </Link>
                     </p>
                 </div>
