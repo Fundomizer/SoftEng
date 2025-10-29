@@ -1,8 +1,16 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { TextInput } from "../../components/TextInput"
 import "../../styles/LoginPageStyle.css"
 
 export function LoginPage() {
+    const navigate = useNavigate()
+
+    const handleLogin = () => {
+        // Add your authentication logic here
+        // For now, it will navigate to student page
+        navigate('/student')
+    }
+
     return (
         <section>
             <div>
@@ -21,12 +29,12 @@ export function LoginPage() {
                     <div>
                         <p><a href="">Forgot password?</a></p>
                     </div>
-                    <button>
+                    <button onClick={handleLogin}>
                         <img src="/src/assets/icons/login_icon.png" alt="sign in using google" />
                         Sign In to Portal
                     </button>
                     <p>or</p>
-                    <button>
+                    <button onClick={handleLogin}>
                         <img src="/src/assets/icons/google_icon.png" alt="sign in icon" />
                         Sign in with Google
                     </button>

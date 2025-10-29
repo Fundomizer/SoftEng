@@ -44,7 +44,7 @@ export const StudentPage = () => {
     const [showPopup, setShowPopup] = useState(false);
 
     const handleLogout = () => {
-        navigate("login");
+        navigate("/");
         setShowPopup(false);
     };
 
