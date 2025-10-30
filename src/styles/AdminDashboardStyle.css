@@ -7,7 +7,7 @@
 .admin-dashboard__header {
     background-color: #003366;
     color: white;
-    padding: 0.75rem 2rem;
+    padding: 0.75rem 1re;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
@@ -19,37 +19,44 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+
 }
 
 .admin-dashboard__header-right {
     display: flex;
     align-items: center;
     gap: 1rem;
+    padding-left: 25rem;
 }
 
 .admin-dashboard__counter {
+    background-color: transparent;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     background-color: rgba(255, 255, 255, 0.1);
-    padding: 0.6rem 0.8rem;
+    padding: 0.7rem 0.8rem;
     border-radius: 4px;
     font-size: 0.85rem;
+    width: 5rem;
+    margin-top: 1rem;
+    border: 1px solid #FFD700;
 }
 
 .admin-dashboard__logout-btn {
-    background-color: transparent;
-    color: #ff4444;
+    background-color: #ff4444;
+    color: #ffffff;
     border: 1px solid #ff4444;
-    padding: 0.6rem 0.8rem;
-    border-radius: 4px;
+    padding: 0.7rem 0.75rem;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 500;
     transition: background-color 0.2s, color 0.2s;
     display: flex;
     align-items: center;
     gap: 0.4rem;
+    width: 15rem;
 }
 
 .admin-dashboard__logout-btn:hover {
@@ -71,15 +78,15 @@
 }
 
 .admin-dashboard__content {
-    padding: 3rem 2rem;
-    max-width: 1200px;
+    padding: 3rem 0.5rem;
+    max-width: 100%;
     margin: 0 auto;
 }
 
 .admin-dashboard__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 3rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
     margin-bottom: 2rem;
 }
 
@@ -101,4 +108,126 @@
     color: #717182;
     font-size: 0.85rem;
     line-height: 1.4;
+}
+
+/* Tabs - Exact Copy from Student Dashboard */
+#tabs {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+#tab-btn {
+    background: white;
+    background-color: white;
+    border: 1px solid #d1d5db;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px 8px 0 0;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: #6b7280;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
+    border-bottom: 2px solid transparent;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#tab-btn:hover {
+    color: #003d73;
+    background-color: #f9fafb;
+}
+
+#tab-btn.active {
+    background-color: #003d73;
+    color: white;
+}
+
+#tab-icon {
+    font-size: 1rem;
+}
+
+/* Content wrapper to match student dashboard */
+.admin-dashboard__tab-content {
+    background: white;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 0 8px 8px 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Logout Confirmation Popup */
+.admin-dashboard__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.admin-dashboard__popup {
+    background-color: white;
+    border-radius: 8px;
+    padding: 2rem;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.admin-dashboard__popup h3 {
+    color: #003366;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    margin-top: 0;
+}
+
+.admin-dashboard__popup p {
+    color: #717182;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.admin-dashboard__popup-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.admin-dashboard__confirm-btn,
+.admin-dashboard__cancel-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+}
+
+.admin-dashboard__confirm-btn {
+    background-color: #ff4444;
+    color: white;
+}
+
+.admin-dashboard__confirm-btn:hover {
+    background-color: #cc0000;
+}
+
+.admin-dashboard__cancel-btn {
+    background-color: #E2E8F0;
+    color: #003366;
+}
+
+.admin-dashboard__cancel-btn:hover {
+    background-color: #CBD5E0;
 }
