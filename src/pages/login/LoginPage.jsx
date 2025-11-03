@@ -1,6 +1,9 @@
 import { Link, useNavigate } from "react-router-dom"
 import { TextInput } from "../../components/TextInput"
 import "../../styles/LoginPageStyle.css"
+import sluLogo from "../../assets/slu_logo.png"
+import loginIcon from "../../assets/icons/login_icon.png"
+import googleIcon from "../../assets/icons/google_icon.png"
 
 export function LoginPage() {
     const navigate = useNavigate()
@@ -14,7 +17,7 @@ export function LoginPage() {
     return (
         <section>
             <div>
-                <img src="/src/assets/slu_logo.png" alt="SLU logo" />
+                <img src={sluLogo} alt="SLU logo" />
                 <h1>Saint Louis University</h1>
                 <p>Student Printing Services</p>
             </div>
@@ -30,12 +33,12 @@ export function LoginPage() {
                         <p><a href="">Forgot password?</a></p>
                     </div>
                     <button onClick={handleLogin}>
-                        <img src="/src/assets/icons/login_icon.png" alt="sign in using google" />
+                        <img src={loginIcon} alt="sign in using portal" />
                         Sign In to Portal
                     </button>
                     <p>or</p>
                     <button onClick={handleLogin}>
-                        <img src="/src/assets/icons/google_icon.png" alt="sign in icon" />
+                        <img src={googleIcon} alt="sign in with google" />
                         Sign in with Google
                     </button>
                     <p style={{ marginTop: '20px', textAlign: 'center' }}>
