@@ -2,6 +2,8 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import "../../styles/AdminDashboardStyle.css"
 import sluLogo from "../../assets/slu_logo.png"
+import AdminDashboardCard from "../../components/AdminComponents/AdminDashboardCard"
+import TabButton from "../../components/Tab"
 
 export function AdminDashboard() {
     const navigate = useNavigate()
@@ -32,53 +34,52 @@ export function AdminDashboard() {
 
             <main className="admin-dashboard__content">
                 <div className="admin-dashboard__grid">
-                    <div className="admin-dashboard__card">
-                        <h3>Pending Review</h3>
-                        <p>View and manage print requests awaiting review.</p>
-                    </div>
+                    <AdminDashboardCard
+                        title="Pending Review"
+                        description="View and manage print requests awaiting review."
+                    />
 
-                    <div className="admin-dashboard__card">
-                        <h3>Print Queue</h3>
-                        <p>Track approved requests currently in the print queue.</p>
-                    </div>
+                    <AdminDashboardCard
+                        title="Print Queue"
+                        description="Track approved requests currently in the print queue."
+                    />
 
-                    <div className="admin-dashboard__card">
-                        <h3>Completed</h3>
-                        <p>View all successfully completed print requests.</p>
-                    </div>
+                    <AdminDashboardCard
+                        title="Completed"
+                        description="View all successfully completed print requests."
+                    />
 
-                    <div className="admin-dashboard__card">
-                        <h3>Rejected</h3>
-                        <p>View rejected print requests and reasons.</p>
-                    </div>
+                    <AdminDashboardCard
+                        title="Rejected"
+                        description="View rejected print requests and reasons."
+                    />
                 </div>
 
                 {/* Navigation Tabs */}
                 <div id="tabs">
-                    <button
-                        id="tab-btn"
-                        className={activeTab === "pending" ? "active" : ""}
-                        onClick={() => setActiveTab("pending")}
-                    >
-                        <span id="tab-icon">⏱</span>
-                        Pending Review
-                    </button>
-                    <button
-                        id="tab-btn"
-                        className={activeTab === "queue" ? "active" : ""}
-                        onClick={() => setActiveTab("queue")}
-                    >
-                        <span id="tab-icon">🖨️</span>
-                        Print Queue
-                    </button>
-                    <button
-                        id="tab-btn"
-                        className={activeTab === "history" ? "active" : ""}
-                        onClick={() => setActiveTab("history")}
-                    >
-                        <span id="tab-icon">🕐</span>
-                        History
-                    </button>
+                    <TabButton
+                        label="Pending Review"
+                        icon="⏱"
+                        tabKey="pending"
+                        activeTab={activeTab}
+                        setActiveTab={setActiveTab}
+                    />
+
+                    <TabButton
+                        label="Print Queue"
+                        icon="🖨️"
+                        tabKey="queue"
+                        activeTab={activeTab}
+                        setActiveTab={setActiveTab}
+                    />
+
+                    <TabButton
+                        label="History"
+                        icon="🕐"
+                        tabKey="history"
+                        activeTab={activeTab}
+                        setActiveTab={setActiveTab}
+                    />
                 </div>
 
                 {/* Tab Content */}
