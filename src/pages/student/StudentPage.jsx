@@ -1,7 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import "/src/styles/StudentPageStyle.css";
 import "/src/pages/login/LoginPage.jsx";
+import StatCard from "../../components/StatCard";
+import TabButton from "../../components/Tab";
+import InputFormGroup from "../../components/FormGroup";
+import ButtonFormGroup from "../../components/ButtonFormGroup";
+import UploadFile from "../../components/UploadFile";
 
 export const StudentPage = () => {
     const [activeTab, setActiveTab] = useState("upload");
@@ -290,10 +295,10 @@ export const StudentPage = () => {
 
         // Simulate submission
         showNotification('Print request submitted successfully!', 'success');
-        
+
         // Deduct tokens
         setAvailableTokens(availableTokens - estimatedCost);
-        
+
         // Reset form
         setSelectedFile(null);
         setDocumentName("");
@@ -302,11 +307,11 @@ export const StudentPage = () => {
         setColorMode("bw");
         setPaperSize("a4");
         setHasImages("no");
-        
+
         // Close modal
         setShowPolicyModal(false);
         setPolicyAgreed(false);
-        
+
         // Switch to queue tab
         setTimeout(() => {
             setActiveTab("queue");
@@ -402,56 +407,46 @@ export const StudentPage = () => {
             )}
 
             <div id="stats-container">
-                <div id="stat-card" className="stat-card-pending">
-                    <div id="stat-label">Queue Pending</div>
-                    <div id="stat-value">3</div>
-                    <span id="stat-badge review">Review</span>
-                </div>
-                <div id="stat-card" className="stat-card-approved">
-                    <div id="stat-label">Queue Approved</div>
-                    <div id="stat-value">3</div>
-                    <span id="stat-badge ready">Ready</span>
-                </div>
-                <div id="stat-card" className="stat-card-completed">
-                    <div id="stat-label">Total Completed</div>
-                    <div id="stat-value">3</div>
-                    <span id="stat-badge done">Done</span>
-                </div>
-                <div id="stat-card" className="stat-card-rejected">
-                    <div id="stat-label">Total Rejected</div>
-                    <div id="stat-value">2</div>
-                    <span id="stat-badge denied">Denied</span>
-                </div>
+                <StatCard
+                    label="Queue Pending" value={3} badge={"Review"} type={"stat-card-pending"}
+                />
+                <StatCard
+                    label="Queue Approved" value={3} badge="Ready" type="stat-card-approved"
+                />
+                <StatCard
+                    label="Total Completed" value={3} badge="Done" type="stat-card-completed"
+                />
+
+                <StatCard
+                    label="Total Rejected" value={2} badge="Denied" type="stat-card-rejected"
+                />
             </div>
 
             <div id="tabs">
-                <button
-                    id="tab-btn"
-                    className={activeTab === "upload" ? "active" : ""}
-                    onClick={() => {
-                        setActiveTab("upload");
-                        updateActiveTab("upload");
-                    }}
-                >
-                    <span id="tab-icon">⬆️</span>
-                    Upload
-                </button>
-                <button
-                    id="tab-btn"
-                    className={activeTab === "queue" ? "active" : ""}
-                    onClick={() => setActiveTab("queue")}
-                >
-                    <span id="tab-icon">🖨️</span>
-                    Queue
-                </button>
-                <button
-                    id="tab-btn"
-                    className={activeTab === "history" ? "active" : ""}
-                    onClick={() => setActiveTab("history")}
-                >
-                    <span id="tab-icon">🕐</span>
-                    History
-                </button>
+                <TabButton
+                    label="Upload"
+                    icon="⬆️"
+                    tabKey="upload"
+                    activeTab={activeTab}
+                    setActiveTab={setActiveTab}
+                    updateActiveTab={updateActiveTab}
+                />
+
+                <TabButton
+                    label="Queue"
+                    icon="🖨️"
+                    tabKey="queue"
+                    activeTab={activeTab}
+                    setActiveTab={setActiveTab}
+                />
+
+                <TabButton
+                    label="History"
+                    icon="🕐"
+                    tabKey="history"
+                    activeTab={activeTab}
+                    setActiveTab={setActiveTab}
+                />
             </div>
 
             <div id="content">
@@ -476,143 +471,78 @@ export const StudentPage = () => {
                         </div>
                     )}
 
-                    <div id="form-group">
-                        <label>Upload Document (PDF/DOC)</label>
-                        <div
-                            className={`upload-area ${dragActive ? "drag-active" : ""} ${selectedFile ? "has-file" : ""}`}
-                            onDragEnter={handleDrag}
-                            onDragLeave={handleDrag}
-                            onDragOver={handleDrag}
-                            onDrop={handleDrop}
-                        >
-                            <input
-                                type="file"
-                                id="file-upload"
-                                accept=".pdf,.doc,.docx"
-                                onChange={handleFileChange}
-                                style={{ display: "none" }}
-                            />
-                            <label htmlFor="file-upload" id="upload-label">
-                                <div id="upload-icon">{selectedFile ? "✓" : "⬆️"}</div>
-                                <div id="upload-text">
-                                    {selectedFile ? `Selected: ${selectedFile.name}` : "Click to upload or drag and drop"}
-                                </div>
-                                <div id="upload-subtext">
-                                    {selectedFile ? `Size: ${(selectedFile.size / 1024).toFixed(2)} KB` : "PDF, DOC, DOCX (Max 10MB)"}
-                                </div>
-                            </label>
-                        </div>
-                    </div>
+                    <UploadFile
+                        label="Upload Document (PDF/DOC)"
+                        uploadIcon="⬆️"
+                        uploadText="Click to upload or drag and drop"
+                        uploadSubtext="PDF, DOC, DOCX (Max 10MB)"
+                        selectedFile={selectedFile}
+                        dragActive={dragActive}
+                        handleDrag={handleDrag}
+                        handleDrop={handleDrop}
+                        handleFileChange={handleFileChange}
+                    />
 
-                    <div id="form-group">
-                        <label>Document Name</label>
-                        <input
-                            type="text"
-                            id="text-input"
-                            placeholder="e.g., Assignment 1 - Introduction to CS"
-                            value={documentName}
-                            onChange={(e) => setDocumentName(e.target.value)}
+
+                    <InputFormGroup
+                        type="text"
+                        label="Document Name"
+                        placeholder="e.g., Assignment 1 - Introduction to CS"
+                        value={documentName}
+                        onChange={(e) => setDocumentName(e.target.value)}
+                    />
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                        <InputFormGroup
+                            type="number"
+                            label="Number of Pages"
+                            placeholder="Enter number of pages"
+                            value={numPages}
+                            onChange={(e) => setNumPages(e.target.value)}
+                        />
+
+                        <InputFormGroup
+                            type="number"
+                            label="Number of Copies"
+                            placeholder="Enter number of copies"
+                            value={numCopies}
+                            onChange={(e) => setNumCopies(e.target.value)}
                         />
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                        <div id="form-group">
-                            <label>Number of Pages</label>
-                            <input
-                                type="number"
-                                id="text-input"
-                                placeholder="Enter number of pages"
-                                value={numPages}
-                                onChange={(e) => setNumPages(e.target.value)}
-                                min="1"
-                            />
-                        </div>
+                    <ButtonFormGroup
+                        label="Color Mode"
+                        options={[
+                            { value: "bw", title: "Black & White", subtitle: "1 token/page" },
+                            { value: "color", title: "Color", subtitle: "4 tokens/page" }
+                        ]}
+                        selected={colorMode}
+                        onChange={setColorMode}
+                        columns={2}
+                    />
 
-                        <div id="form-group">
-                            <label>Number of Copies</label>
-                            <input
-                                type="number"
-                                id="text-input"
-                                placeholder="Enter number of copies"
-                                value={numCopies}
-                                onChange={(e) => setNumCopies(e.target.value)}
-                                min="1"
-                            />
-                        </div>
-                    </div>
+                    <ButtonFormGroup
+                        label="Paper Size"
+                        options={[
+                            { value: "a4", title: "A4", subtitle: "210×297mm" },
+                            { value: "letter", title: "Letter", subtitle: "8.5×11in" },
+                            { value: "legal", title: "Legal", subtitle: "8.5×14in" }
+                        ]}
+                        selected={paperSize}
+                        onChange={setPaperSize}
+                        columns={3}
+                    />
 
-                    <div id="form-group">
-                        <label>Color Mode</label>
-                        <div id="option-grid two-col">
-                            <button
-                                id="option-btn"
-                                className={colorMode === "bw" ? "selected" : ""}
-                                onClick={() => setColorMode("bw")}
-                            >
-                                <div id="option-title">Black & White</div>
-                                <div id="option-cost">1 token/page</div>
-                            </button>
-                            <button
-                                id="option-btn"
-                                className={colorMode === "color" ? "selected" : ""}
-                                onClick={() => setColorMode("color")}
-                            >
-                                <div id="option-title">Color</div>
-                                <div id="option-cost">4 tokens/page</div>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div id="form-group">
-                        <label>Paper Size</label>
-                        <div id="option-grid three-col">
-                            <button
-                                id="option-btn"
-                                className={paperSize === "a4" ? "selected" : ""}
-                                onClick={() => setPaperSize("a4")}
-                            >
-                                <div id="option-title">A4</div>
-                                <div id="option-subtitle">210×297mm</div>
-                            </button>
-                            <button
-                                id="option-btn"
-                                className={paperSize === "letter" ? "selected" : ""}
-                                onClick={() => setPaperSize("letter")}
-                            >
-                                <div id="option-title">Letter</div>
-                                <div id="option-subtitle">8.5×11in</div>
-                            </button>
-                            <button
-                                id="option-btn"
-                                className={paperSize === "legal" ? "selected" : ""}
-                                onClick={() => setPaperSize("legal")}
-                            >
-                                <div id="option-title">Legal</div>
-                                <div id="option-subtitle">8.5×14in</div>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div id="form-group">
-                        <label>Contains Images?</label>
-                        <div id="option-grid two-col">
-                            <button
-                                id="option-btn"
-                                className={hasImages === "no" ? "selected" : ""}
-                                onClick={() => setHasImages("no")}
-                            >
-                                <div id="option-title">No Images</div>
-                            </button>
-                            <button
-                                id="option-btn"
-                                className={hasImages === "yes" ? "selected" : ""}
-                                onClick={() => setHasImages("yes")}
-                            >
-                                <div id="option-title">Has Images</div>
-                                <div id="option-cost">+1 token/page</div>
-                            </button>
-                        </div>
-                    </div>
+                    <ButtonFormGroup
+                        label="Contains Images?"
+                        options={[
+                            { value: "no", title: "No Images" },
+                            { value: "yes", title: "Has Images", subtitle: "+1 token/page" }
+                        ]}
+                        selected={hasImages}
+                        onChange={setHasImages}
+                        columns={2}
+                    />
 
                     <div className="form-actions">
                         <button id="submit-btn" onClick={handleSubmit}>
@@ -690,8 +620,8 @@ export const StudentPage = () => {
 
                     {totalPages > 1 && (
                         <div id="pagination">
-                            <button 
-                                id="page-prev" 
+                            <button
+                                id="page-prev"
                                 onClick={handlePrevPage}
                                 disabled={currentPage === 1}
                             >
@@ -707,7 +637,7 @@ export const StudentPage = () => {
                                     {index + 1}
                                 </button>
                             ))}
-                            <button 
+                            <button
                                 id="page-next"
                                 onClick={handleNextPage}
                                 disabled={currentPage === totalPages}
@@ -758,7 +688,7 @@ export const StudentPage = () => {
                                         <td>{item.submitted}</td>
                                         <td>
                                             {(item.status === "Pending" || item.status === "Approved") ? (
-                                                <button 
+                                                <button
                                                     className="cancel-btn"
                                                     onClick={() => removeFromHistory(item.id)}
                                                 >
@@ -802,7 +732,7 @@ export const StudentPage = () => {
                                 <div className="history-card-footer">
                                     <div className="history-submitted">{item.submitted}</div>
                                     {(item.status === "Pending" || item.status === "Approved") && (
-                                        <button 
+                                        <button
                                             className="cancel-btn"
                                             onClick={() => removeFromHistory(item.id)}
                                         >
@@ -822,8 +752,8 @@ export const StudentPage = () => {
 
                     {totalHistoryPages > 1 && (
                         <div id="pagination">
-                            <button 
-                                id="page-prev" 
+                            <button
+                                id="page-prev"
                                 onClick={handleHistoryPrevPage}
                                 disabled={currentHistoryPage === 1}
                             >
@@ -839,7 +769,7 @@ export const StudentPage = () => {
                                     {index + 1}
                                 </button>
                             ))}
-                            <button 
+                            <button
                                 id="page-next"
                                 onClick={handleHistoryNextPage}
                                 disabled={currentHistoryPage === totalHistoryPages}
@@ -869,7 +799,7 @@ export const StudentPage = () => {
                 <div className="overlay policy-overlay">
                     <div className="popup policy-modal">
                         <h2 className="policy-title">Computer Laboratories Printing Policies Agreement</h2>
-                        
+
                         <div className="policy-content">
                             <div className="policy-section">
                                 <h3>General Policies</h3>
@@ -903,8 +833,8 @@ export const StudentPage = () => {
 
                             <div className="policy-agreement">
                                 <label className="checkbox-container">
-                                    <input 
-                                        type="checkbox" 
+                                    <input
+                                        type="checkbox"
                                         checked={policyAgreed}
                                         onChange={(e) => setPolicyAgreed(e.target.checked)}
                                     />
@@ -917,8 +847,8 @@ export const StudentPage = () => {
                         </div>
 
                         <div className="policy-actions">
-                            <button 
-                                onClick={confirmSubmission} 
+                            <button
+                                onClick={confirmSubmission}
                                 className="confirm"
                                 disabled={!policyAgreed}
                             >

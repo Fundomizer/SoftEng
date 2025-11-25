@@ -412,12 +412,6 @@ Using attribute selectors lets us avoid changing the JSX to add className.
     color: #6b7280;
 }
 
-#option-cost {
-    font-size: 0.875rem;
-    color: #6b7280;
-    margin-top: 0.25rem;
-}
-
 /* Submit Button */
 #submit-btn {
     width: 100%;
@@ -676,6 +670,7 @@ Using attribute selectors lets us avoid changing the JSX to add className.
         opacity: 0;
         transform: scale(0.9) translateY(-20px);
     }
+
     to {
         opacity: 1;
         transform: scale(1) translateY(0);
@@ -1143,8 +1138,10 @@ td {
 }
 
 @media (max-width: 768px) {
+
     /* Prevent horizontal scrolling */
-    body, #upload-page {
+    body,
+    #upload-page {
         overflow-x: hidden;
         max-width: 100vw;
     }
@@ -1302,8 +1299,7 @@ td {
         font-size: 0.875rem;
     }
 
-    #option-subtitle,
-    #option-cost {
+    #option-subtitle {
         font-size: 0.75rem;
     }
 
@@ -1427,7 +1423,7 @@ td {
         margin-bottom: 0.75rem;
     }
 
-    .history-card-header > div:first-child {
+    .history-card-header>div:first-child {
         margin-bottom: 0.5rem;
     }
 
@@ -1728,6 +1724,7 @@ td {
         transform: translate(-50%, -24px);
         opacity: 0;
     }
+
     to {
         transform: translate(-50%, 0);
         opacity: 1;
