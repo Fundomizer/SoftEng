@@ -7,6 +7,7 @@ import TabButton from "../../components/Tab";
 import InputFormGroup from "../../components/FormGroup";
 import ButtonFormGroup from "../../components/ButtonFormGroup";
 import UploadFile from "../../components/UploadFile";
+import PrintJobCard from "../../components/PrintJobCard";
 
 export const StudentPage = () => {
     const [activeTab, setActiveTab] = useState("upload");
@@ -571,45 +572,7 @@ export const StudentPage = () => {
                     </p>
 
                     {currentItems.map((item) => (
-                        <div key={item.id} id={`job-${item.id}`} className="print-job-card">
-                            <div className="job-header">
-                                <div className="job-title">
-                                    <span className="job-icon">{item.icon}</span>
-                                    <div className="job-info">
-                                        <h3>{item.title}</h3>
-                                        <p className="job-document">{item.document}</p>
-                                    </div>
-                                </div>
-                                <span className={`job-status ${item.statusClass}`}>{item.status}</span>
-                            </div>
-                            <div className="job-details">
-                                <div className="detail-item">
-                                    <span className="detail-label">Pages</span>
-                                    <span className="detail-value">{item.pages}</span>
-                                </div>
-                                <div className="detail-item">
-                                    <span className="detail-label">Mode</span>
-                                    <span className="detail-value">{item.mode}</span>
-                                </div>
-                                <div className="detail-item">
-                                    <span className="detail-label">Images</span>
-                                    <span className="detail-value">{item.hasImages}</span>
-                                </div>
-                                <div className="detail-item">
-                                    <span className="detail-label">Token Cost</span>
-                                    <span className="detail-value">{item.tokenCost}</span>
-                                </div>
-                            </div>
-                            <div className="job-footer">
-                                Submitted: {item.submitted}
-                                {item.reviewed && ` • Reviewed: ${item.reviewed}`}
-                            </div>
-                            {item.rejectionReason && (
-                                <div className="rejection-reason">
-                                    Rejection reason: {item.rejectionReason}
-                                </div>
-                            )}
-                        </div>
+                        <PrintJobCard printJob={item} />
                     ))}
 
                     {queueItems.length === 0 && (
