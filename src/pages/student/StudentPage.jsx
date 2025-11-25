@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { Form, useNavigate } from "react-router-dom";
 import "/src/styles/StudentPageStyle.css";
 import "/src/pages/login/LoginPage.jsx";
-import StatCard from "../../components/StatCard";
+import StatCard from "../../components/StudentComponents/StatCard";
 import TabButton from "../../components/Tab";
-import InputFormGroup from "../../components/FormGroup";
-import ButtonFormGroup from "../../components/ButtonFormGroup";
+import InputFormGroup from "../../components/StudentComponents/FormGroup";
+import ButtonFormGroup from "../../components/StudentComponents/ButtonFormGroup";
 import UploadFile from "../../components/UploadFile";
-import PrintJobCard from "../../components/PrintJobCard";
-import HistoryItemDesktop from "../../components/HistoryItemDesktop";
-import HistoryItemMobile from "../../components/HistoryItemMobile";
+import PrintJobCard from "../../components/StudentComponents/PrintJobCard";
+import HistoryItemDesktop from "../../components/StudentComponents/HistoryItemDesktop";
+import HistoryItemMobile from "../../components/StudentComponents/HistoryItemMobile";
 
 export const StudentPage = () => {
     const [activeTab, setActiveTab] = useState("upload");
