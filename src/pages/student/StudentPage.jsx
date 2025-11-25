@@ -8,6 +8,8 @@ import InputFormGroup from "../../components/FormGroup";
 import ButtonFormGroup from "../../components/ButtonFormGroup";
 import UploadFile from "../../components/UploadFile";
 import PrintJobCard from "../../components/PrintJobCard";
+import HistoryItemDesktop from "../../components/HistoryItemDesktop";
+import HistoryItemMobile from "../../components/HistoryItemMobile";
 
 export const StudentPage = () => {
     const [activeTab, setActiveTab] = useState("upload");
@@ -572,7 +574,7 @@ export const StudentPage = () => {
                     </p>
 
                     {currentItems.map((item) => (
-                        <PrintJobCard printJob={item} />
+                        <PrintJobCard key={item.id} printJob={item} />
                     ))}
 
                     {queueItems.length === 0 && (
@@ -633,35 +635,7 @@ export const StudentPage = () => {
                             </thead>
                             <tbody>
                                 {currentHistoryItems.map((item) => (
-                                    <tr key={item.id}>
-                                        <td>
-                                            <div className="document-cell">
-                                                <span className="document-title">
-                                                    {item.documentTitle}
-                                                </span>
-                                                <span className="document-filename">{item.documentFilename}</span>
-                                            </div>
-                                        </td>
-                                        <td>{item.pages}</td>
-                                        <td>{item.mode}</td>
-                                        <td>{item.tokens}</td>
-                                        <td>
-                                            <span className={`status-badge ${item.statusClass}`}>{item.status}</span>
-                                        </td>
-                                        <td>{item.submitted}</td>
-                                        <td>
-                                            {(item.status === "Pending" || item.status === "Approved") ? (
-                                                <button
-                                                    className="cancel-btn"
-                                                    onClick={() => removeFromHistory(item.id)}
-                                                >
-                                                    Cancel
-                                                </button>
-                                            ) : (
-                                                <span className="not-cancelable">—</span>
-                                            )}
-                                        </td>
-                                    </tr>
+                                    <HistoryItemDesktop key={item.id} item={item} removeFromHistory={removeFromHistory} />
                                 ))}
                             </tbody>
                         </table>
@@ -670,40 +644,7 @@ export const StudentPage = () => {
                     {/* Mobile card view */}
                     <div className="history-cards mobile-only">
                         {currentHistoryItems.map((item) => (
-                            <div key={item.id} className="history-card">
-                                <div className="history-card-header">
-                                    <div>
-                                        <div className="history-document-title">{item.documentTitle}</div>
-                                        <div className="history-document-filename">{item.documentFilename}</div>
-                                    </div>
-                                    <span className={`status-badge ${item.statusClass}`}>{item.status}</span>
-                                </div>
-                                <div className="history-card-details">
-                                    <div className="history-detail-item">
-                                        <span className="history-detail-label">Pages:</span>
-                                        <span className="history-detail-value">{item.pages}</span>
-                                    </div>
-                                    <div className="history-detail-item">
-                                        <span className="history-detail-label">Mode:</span>
-                                        <span className="history-detail-value">{item.mode}</span>
-                                    </div>
-                                    <div className="history-detail-item">
-                                        <span className="history-detail-label">Tokens:</span>
-                                        <span className="history-detail-value">{item.tokens}</span>
-                                    </div>
-                                </div>
-                                <div className="history-card-footer">
-                                    <div className="history-submitted">{item.submitted}</div>
-                                    {(item.status === "Pending" || item.status === "Approved") && (
-                                        <button
-                                            className="cancel-btn"
-                                            onClick={() => removeFromHistory(item.id)}
-                                        >
-                                            Cancel
-                                        </button>
-                                    )}
-                                </div>
-                            </div>
+                            <HistoryItemMobile key={item.id} item={item} removeFromHistory={removeFromHistory} />
                         ))}
                     </div>
 
