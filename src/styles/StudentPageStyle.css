@@ -487,22 +487,22 @@ Using attribute selectors lets us avoid changing the JSX to add className.
     margin-bottom: 1rem;
 }
 
-#job-000049 {
+.print-job-card.status-pending {
     border-left-color: #ffc107;
     background-color: #fffbf0;
 }
 
-#job-000050 {
+.print-job-card.status-approved {
     border-left-color: #28a745;
     background-color: #f0fdf4;
 }
 
-#job-000051 {
+.print-job-card.status-printed {
     border-left-color: #17a2b8;
     background-color: #f0f9ff;
 }
 
-#job-000054 {
+.print-job-card.status-rejected {
     border-left-color: #dc3545;
     background-color: #fef2f2;
 }
@@ -542,22 +542,22 @@ Using attribute selectors lets us avoid changing the JSX to add className.
     font-weight: 600;
 }
 
-#job-000049 .job-status {
+.print-job-card .job-status.status-pending {
     background-color: #fff3cd;
     color: #856404;
 }
 
-#job-000050 .job-status {
+.print-job-card .job-status.status-approved {
     background-color: #d4edda;
     color: #155724;
 }
 
-#job-000051 .job-status {
+.print-job-card .job-status.status-printed {
     background-color: #d1ecf1;
     color: #0c5460;
 }
 
-#job-000054 .job-status {
+.print-job-card .job-status.status-rejected {
     background-color: #f8d7da;
     color: #721c24;
 }
@@ -594,7 +594,7 @@ Using attribute selectors lets us avoid changing the JSX to add className.
     color: #666;
 }
 
-#job-000054 .rejection-reason {
+.print-job-card .rejection-reason {
     margin-top: 1rem;
     padding: 0.75rem;
     background-color: #fff5f5;
@@ -632,7 +632,7 @@ Using attribute selectors lets us avoid changing the JSX to add className.
     cursor: not-allowed;
 }
 
-#pagination #page-1 {
+#pagination button.active {
     background-color: #ffc107;
     color: #333;
     border-color: #ffc107;
@@ -976,21 +976,25 @@ td {
     font-weight: 600;
 }
 
+.status-badge.status-pending,
 .status-pending {
     background-color: #fff3cd;
     color: #856404;
 }
 
+.status-badge.status-approved,
 .status-approved {
     background-color: #d4edda;
     color: #155724;
 }
 
+.status-badge.status-printed,
 .status-printed {
     background-color: #d1ecf1;
     color: #0c5460;
 }
 
+.status-badge.status-rejected,
 .status-rejected {
     background-color: #f8d7da;
     color: #721c24;

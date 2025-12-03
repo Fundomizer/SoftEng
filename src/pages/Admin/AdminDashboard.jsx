@@ -106,6 +106,14 @@ export function AdminDashboard() {
         }
     };
 
+    const handleViewDocument = (filename) => {
+        if (filename) {
+            // Open the document in a new tab
+            const url = `/api/documents/${encodeURIComponent(filename)}`;
+            window.open(url, '_blank');
+        }
+    };
+
     const handleLogout = () => {
         sessionStorage.removeItem('admin');
         navigate('/admin');
@@ -221,7 +229,7 @@ export function AdminDashboard() {
                                                 gap: '0.5rem',
                                                 alignItems: 'flex-end'
                                             }}>
-                                                <button style={{
+                                                <button onClick={() => handleViewDocument(job.document_filename)} style={{
                                                     width: '212.65px',
                                                     height: '36px',
                                                     padding: '0.5rem 1rem',
@@ -357,7 +365,7 @@ export function AdminDashboard() {
                                                 gap: '0.5rem',
                                                 alignItems: 'flex-end'
                                             }}>
-                                                <button style={{
+                                                <button onClick={() => handleViewDocument(job.document_filename)} style={{
                                                     width: '212.65px',
                                                     height: '36px',
                                                     padding: '0.5rem 1rem',

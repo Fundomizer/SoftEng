@@ -260,21 +260,20 @@ export const StudentPage = () => {
         }
 
         try {
+            // Create FormData to send file and other data
+            const formData = new FormData();
+            formData.append('document', selectedFile);
+            formData.append('documentName', documentName);
+            formData.append('numPages', parseInt(numPages));
+            formData.append('numCopies', parseInt(numCopies));
+            formData.append('colorMode', colorMode);
+            formData.append('paperSize', paperSize);
+            formData.append('hasImages', hasImages);
+            formData.append('tokenCost', estimatedCost);
+
             const response = await fetch(`/api/student/${studentId}/jobs`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    documentName,
-                    documentFilename: selectedFile.name,
-                    numPages: parseInt(numPages),
-                    numCopies: parseInt(numCopies),
-                    colorMode,
-                    paperSize,
-                    hasImages,
-                    tokenCost: estimatedCost
-                })
+                body: formData
             });
 
             const data = await response.json();

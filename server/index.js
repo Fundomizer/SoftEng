@@ -1,6 +1,28 @@
 import express from 'express';
 import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import multer from 'multer';
 import db from './db.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Configure multer for file uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, '..', 'uploads'));
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, uniqueSuffix + '-' + file.originalname);
+  }
+});
+
+const upload = multer({ 
+  storage: storage,
+  limits: { fileSize: 10 * 1024 * 1024 } // 10MB limit
+});
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -116,9 +138,10 @@ app.get('/api/student/:id/jobs', async (req, res) => {
   }
 });
 
-// Submit new print job
-app.post('/api/student/:id/jobs', async (req, res) => {
-  const { documentName, documentFilename, numPages, numCopies, colorMode, paperSize, hasImages, tokenCost } = req.body;
+// Submit new print job (with file upload)
+app.post('/api/student/:id/jobs', upload.single('document'), async (req, res) => {
+  const { documentName, numPages, numCopies, colorMode, paperSize, hasImages, tokenCost } = req.body;
+  const documentFilename = req.file ? req.file.filename : req.body.documentFilename;
   
   try {
     // Check if student has enough tokens
@@ -337,6 +360,20 @@ app.put('/api/admin/jobs/:id/printed', async (req, res) => {
     console.error('Mark printed error:', error);
     res.status(500).json({ error: 'Server error' });
   }
+});
+
+// Serve uploaded documents
+app.get('/api/documents/:filename', (req, res) => {
+  const filename = req.params.filename;
+  const uploadsPath = path.join(__dirname, '..', 'uploads', filename);
+  
+  // Check if file exists and serve it
+  res.sendFile(uploadsPath, (err) => {
+    if (err) {
+      console.error('Error serving file:', err);
+      res.status(404).json({ error: 'Document not found' });
+    }
+  });
 });
 
 // Health check
