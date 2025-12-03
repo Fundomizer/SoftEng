@@ -28,6 +28,14 @@ export function AdminDashboard() {
         // Fetch jobs and stats
         fetchJobs();
         fetchStats();
+
+        // Auto-refresh every 30 seconds
+        const refreshInterval = setInterval(() => {
+            fetchJobs();
+            fetchStats();
+        }, 5000);
+
+        return () => clearInterval(refreshInterval);
     }, [navigate]);
 
     const fetchJobs = async (status = null) => {
@@ -108,9 +116,16 @@ export function AdminDashboard() {
 
     const handleViewDocument = (filename) => {
         if (filename) {
-            // Open the document in a new tab
+            // Open the document in a new tab ready for printing
             const url = `/api/documents/${encodeURIComponent(filename)}`;
-            window.open(url, '_blank');
+            const printWindow = window.open(url, '_blank');
+            
+            // Wait for the document to load, then trigger print dialog
+            if (printWindow) {
+                printWindow.onload = function() {
+                    printWindow.print();
+                };
+            }
         }
     };
 

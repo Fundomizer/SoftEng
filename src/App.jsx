@@ -3,7 +3,6 @@ import {LoginPage} from './pages/login/LoginPage'
 import {AdminLogin} from './pages/Admin/AdminLogin'
 import {AdminDashboard} from './pages/Admin/AdminDashboard'
 import {StudentPage} from './pages/student/StudentPage'
-import './App.css'
 
 function App() {
   return (

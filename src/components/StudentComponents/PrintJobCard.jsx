@@ -1,23 +1,5 @@
 /**
- * PrintJobCard Component
- *
- * Renders a single print job card with header, details, footer, and optional rejection reason.
- *
- * Props:
- * - item {object} : Print job data with fields:
- *    - id {string|number} : Unique job ID
- *    - icon {string} : Icon for the job
- *    - title {string} : Job title
- *    - document {string} : Document name
- *    - status {string} : Current status text
- *    - statusClass {string} : CSS class for status styling
- *    - pages {number} : Number of pages
- *    - mode {string} : Print mode (e.g., "bw", "color")
- *    - hasImages {string} : Whether job has images
- *    - tokenCost {number} : Token cost
- *    - submitted {string} : Submission timestamp
- *    - reviewed {string?} : Optional reviewed timestamp
- *    - rejectionReason {string?} : Optional rejection reason
+ * PrintJobCard Component - Displays a print job card with details
  */
 export default function PrintJobCard({ printJob }) {
     return (

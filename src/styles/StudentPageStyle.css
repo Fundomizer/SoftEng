@@ -927,6 +927,8 @@ Using attribute selectors lets us avoid changing the JSX to add className.
 /* Table Styles */
 .table-wrapper {
     overflow-x: auto;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 table {
@@ -1043,13 +1045,12 @@ td {
 }
 
 /* Desktop/Mobile visibility helpers */
-/* Desktop/Mobile visibility helpers */
 .desktop-only {
-    display: none;
+    display: block !important;
 }
 
 .mobile-only {
-    display: block;
+    display: none !important;
 }
 
 /* History cards - table-like on desktop, card-like on mobile */
@@ -1057,6 +1058,8 @@ td {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .history-card {

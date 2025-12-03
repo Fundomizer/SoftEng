@@ -1,11 +1,5 @@
 /**
- * AdminCard Component
- *
- * Renders a dashboard card with a title and description.
- *
- * Props:
- * - title {string} : The heading text for the card.
- * - description {string} : The supporting description text.
+ * AdminDashboardCard Component - Dashboard card with title and description
  */
 export default function AdminDashboardCard({ title, description }) {
     return (

@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Form, useNavigate } from "react-router-dom";
-import "/src/styles/StudentPageStyle.css";
-import "/src/pages/login/LoginPage.jsx";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "../../styles/StudentPageStyle.css";
 import StatCard from "../../components/StudentComponents/StatCard";
 import TabButton from "../../components/Tab";
 import InputFormGroup from "../../components/StudentComponents/FormGroup";
@@ -50,6 +49,13 @@ export const StudentPage = () => {
 
         // Fetch print jobs
         fetchPrintJobs(student.id);
+
+        // Auto-refresh every 30 seconds
+        const refreshInterval = setInterval(() => {
+            fetchPrintJobs(student.id);
+        }, 5000);
+
+        return () => clearInterval(refreshInterval);
     }, [navigate]);
 
     // Fetch print jobs from API
@@ -211,12 +217,11 @@ export const StudentPage = () => {
         showNotification(`File "${file.name}" selected successfully`, 'success');
     };
 
-    function updateActiveTab(activeTab) {
-        setActiveTab(activeTab);
-        // Reset to page 1 when switching tabs
+    // Reset pagination when switching tabs
+    useEffect(() => {
         if (activeTab === 'queue') setCurrentPage(1);
         if (activeTab === 'history') setCurrentHistoryPage(1);
-    }
+    }, [activeTab]);
 
     const [showPopup, setShowPopup] = useState(false);
     const [showPolicyModal, setShowPolicyModal] = useState(false);
@@ -474,7 +479,6 @@ export const StudentPage = () => {
                     tabKey="upload"
                     activeTab={activeTab}
                     setActiveTab={setActiveTab}
-                    updateActiveTab={updateActiveTab}
                 />
 
                 <TabButton

@@ -1,20 +1,5 @@
 /**
- * HistoryCard Component
- *
- * Renders a single history card with header, details, footer, and optional cancel button.
- *
- * Props:
- * - item {object} : History item data with fields:
- *    - id {string|number} : Unique ID
- *    - documentTitle {string} : Title of the document
- *    - documentFilename {string} : Filename of the document
- *    - pages {number} : Number of pages
- *    - mode {string} : Print mode (e.g., "bw", "color")
- *    - tokens {number} : Token cost
- *    - status {string} : Current status text
- *    - statusClass {string} : CSS class for status styling
- *    - submitted {string} : Submission timestamp
- * - removeFromHistory {function} : Callback to cancel/remove history item
+ * HistoryItemMobile Component - Card view for print history on mobile
  */
 export default function HistoryItemMobile({ item, removeFromHistory }) {
     return (

@@ -1,19 +1,5 @@
 /**
- * UploadFile Component
- *
- * Renders a file upload area with drag-and-drop support and customizable labels/icons.
- * Displays selected file name and size when a file is chosen.
- *
- * Props:
- * - label {string}        : Label displayed above the upload area.
- * - uploadIcon {string}   : Icon shown in the upload area (default "⬆️").
- * - uploadText {string}   : Default text shown when no file is selected (default "Click to upload or drag and drop").
- * - uploadSubtext {string}: Default subtext shown when no file is selected (default "PDF, DOC, DOCX (Max 10MB)").
- * - selectedFile {File?}  : Currently selected file object (optional).
- * - dragActive {boolean}  : Whether drag state is active (optional).
- * - handleDrag {function} : Handler for drag events.
- * - handleDrop {function} : Handler for drop events.
- * - handleFileChange {function} : Handler for file input change.
+ * UploadFile Component - File upload area with drag-and-drop support
  */
 export default function UploadFile({
     label = "Upload Document (PDF/DOC)",

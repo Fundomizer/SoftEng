@@ -1,10 +1,10 @@
 import "../styles/TextInputStyle.css"
 
-export function TextInput(props) { //{label = "Text", inputType="text", placeholder=""}
+export function TextInput({ label, inputType = "text", placeholder = "" }) {
     return (
         <div className="InputField">
-            <p>{props.label}</p>
-            <input type={props.inputType} placeholder={props.placeholder} />
+            <p>{label}</p>
+            <input type={inputType} placeholder={placeholder} />
         </div>
     )
 }
