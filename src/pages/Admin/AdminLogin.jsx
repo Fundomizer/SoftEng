@@ -1,12 +1,44 @@
+import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { TextInput } from "../../components/TextInput"
 import "../../styles/LoginPageStyle.css"
 
 export function AdminLogin() {
     const navigate = useNavigate()
+    const [adminId, setAdminId] = useState('')
+    const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
 
-    const handleSignIn = () => {
-        navigate('/admin/dashboard')
+    const handleSignIn = async (e) => {
+        e.preventDefault()
+        setError('')
+        setLoading(true)
+
+        try {
+            const response = await fetch('/api/auth/admin/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ adminId, password })
+            })
+
+            const data = await response.json()
+
+            if (response.ok) {
+                // Store admin info in sessionStorage
+                sessionStorage.setItem('admin', JSON.stringify(data))
+                navigate('/admin/dashboard')
+            } else {
+                setError(data.error || 'Login failed')
+            }
+        } catch (err) {
+            console.error('Admin login error:', err)
+            setError('Connection error. Please try again.')
+        } finally {
+            setLoading(false)
+        }
     }
 
     return (
@@ -22,18 +54,53 @@ export function AdminLogin() {
                         <p><span>Welcome Back</span></p>
                         <p>Sign in to manage your print requests to track tokens</p>
                     </div>
-                    <TextInput label="Student ID" inputType="text" placeholder="Enter your student ID" />
-                    <TextInput label="Password" inputType="password" placeholder="Enter your password" />
-                    <div>
-                        <p><a href="">Forgot password?</a></p>
-                    </div>
-                    <button onClick={handleSignIn}>
-                        <img src="/src/assets/icons/login_icon.png" alt="sign in using google" />
-                        Sign In to Portal
-                    </button>
+                    {error && <div style={{ color: 'red', marginBottom: '1rem', textAlign: 'center' }}>{error}</div>}
+                    <form onSubmit={handleSignIn}>
+                        <div style={{ marginBottom: '1rem' }}>
+                            <label style={{ display: 'block', marginBottom: '0.5rem', color: '#003366', fontWeight: '500' }}>Admin ID</label>
+                            <input 
+                                type="text" 
+                                placeholder="Enter your admin ID" 
+                                value={adminId}
+                                onChange={(e) => setAdminId(e.target.value)}
+                                required
+                                style={{
+                                    width: '100%',
+                                    padding: '0.75rem',
+                                    border: '1px solid #ddd',
+                                    borderRadius: '8px',
+                                    fontSize: '1rem'
+                                }}
+                            />
+                        </div>
+                        <div style={{ marginBottom: '1rem' }}>
+                            <label style={{ display: 'block', marginBottom: '0.5rem', color: '#003366', fontWeight: '500' }}>Password</label>
+                            <input 
+                                type="password" 
+                                placeholder="Enter your password" 
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                                style={{
+                                    width: '100%',
+                                    padding: '0.75rem',
+                                    border: '1px solid #ddd',
+                                    borderRadius: '8px',
+                                    fontSize: '1rem'
+                                }}
+                            />
+                        </div>
+                        <div>
+                            <p><a href="">Forgot password?</a></p>
+                        </div>
+                        <button type="submit" disabled={loading}>
+                            <img src="/src/assets/icons/login_icon.png" alt="sign in using portal" />
+                            {loading ? 'Signing in...' : 'Sign In to Portal'}
+                        </button>
+                    </form>
                     <p>or</p>
-                    <button>
-                        <img src="/src/assets/icons/google_icon.png" alt="sign in icon" />
+                    <button type="button">
+                        <img src="/src/assets/icons/google_icon.png" alt="sign in with google" />
                         Sign in with Google
                     </button>
                     <p style={{ marginTop: '20px', textAlign: 'center' }}>

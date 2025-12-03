@@ -33,7 +33,7 @@ export default function HistoryItemDesktop({ item, removeFromHistory }) {
             </td>
             <td>{item.submitted}</td>
             <td>
-                {(item.status === "Pending" || item.status === "Approved") ? (
+                {item.status === "Pending" ? (
                     <button
                         className="cancel-btn"
                         onClick={() => removeFromHistory(item.id)}

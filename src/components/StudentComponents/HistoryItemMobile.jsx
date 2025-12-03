@@ -44,7 +44,7 @@ export default function HistoryItemMobile({ item, removeFromHistory }) {
 
             <div className="history-card-footer">
                 <div className="history-submitted">{item.submitted}</div>
-                {(item.status === "Pending" || item.status === "Approved") && (
+                {item.status === "Pending" && (
                     <button
                         className="cancel-btn"
                         onClick={() => removeFromHistory(item.id)}

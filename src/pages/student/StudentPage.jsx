@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, useNavigate } from "react-router-dom";
 import "/src/styles/StudentPageStyle.css";
 import "/src/pages/login/LoginPage.jsx";
@@ -12,6 +12,9 @@ import HistoryItemDesktop from "../../components/StudentComponents/HistoryItemDe
 import HistoryItemMobile from "../../components/StudentComponents/HistoryItemMobile";
 
 export const StudentPage = () => {
+    const navigate = useNavigate();
+    const [studentId, setStudentId] = useState(null);
+    const [studentName, setStudentName] = useState("User");
     const [activeTab, setActiveTab] = useState("upload");
     const [dragActive, setDragActive] = useState(false);
     const [documentName, setDocumentName] = useState("");
@@ -27,6 +30,77 @@ export const StudentPage = () => {
     const [notification, setNotification] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
     const [availableTokens, setAvailableTokens] = useState(250);
+    const [queueItems, setQueueItems] = useState([]);
+    const [historyItems, setHistoryItems] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    // Fetch student data on mount
+    useEffect(() => {
+        // Get student info from sessionStorage
+        const storedStudent = sessionStorage.getItem('student');
+        if (!storedStudent) {
+            navigate('/');
+            return;
+        }
+
+        const student = JSON.parse(storedStudent);
+        setStudentId(student.id);
+        setStudentName(student.name);
+        setAvailableTokens(student.tokens);
+
+        // Fetch print jobs
+        fetchPrintJobs(student.id);
+    }, [navigate]);
+
+    // Fetch print jobs from API
+    const fetchPrintJobs = async (id) => {
+        try {
+            const response = await fetch(`/api/student/${id}/jobs`);
+            const jobs = await response.json();
+
+            // Transform jobs for display
+            const transformedJobs = jobs.map(job => ({
+                id: job.job_number,
+                title: `Print Job #${job.job_number}`,
+                document: 'Your Document', // Anonymous in queue
+                documentTitle: job.document_name,
+                documentFilename: job.document_filename,
+                status: job.status.charAt(0).toUpperCase() + job.status.slice(1),
+                statusClass: `status-${job.status}`,
+                icon: getStatusIcon(job.status),
+                pages: job.num_pages,
+                mode: job.color_mode === 'bw' ? 'B&W' : (job.color_mode === 'color' ? 'Color' : job.color_mode),
+                hasImages: job.has_images === 'yes' ? 'Yes' : 'No',
+                tokens: job.token_cost,
+                tokenCost: job.token_cost,
+                submitted: new Date(job.submitted_at).toLocaleString('en-US', { 
+                    month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit'
+                }),
+                reviewed: job.reviewed_at ? new Date(job.reviewed_at).toLocaleString('en-US', { 
+                    month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+                }) : null,
+                rejectionReason: job.rejection_reason
+            }));
+
+            setQueueItems(transformedJobs);
+            setHistoryItems(transformedJobs);
+            setLoading(false);
+        } catch (error) {
+            console.error('Error fetching jobs:', error);
+            showNotification('Failed to load print jobs', 'error');
+            setLoading(false);
+        }
+    };
+
+    const getStatusIcon = (status) => {
+        const icons = {
+            pending: '⏱',
+            approved: '✓',
+            printed: '🖨',
+            rejected: '✕'
+        };
+        return icons[status] || '?';
+    };
 
     // Show notification helper
     const showNotification = (message, type = "success") => {
@@ -43,117 +117,6 @@ export const StudentPage = () => {
     };
 
     const estimatedCost = calculateTokenCost();
-
-    // Queue items state - can be dynamically updated
-    const [queueItems, setQueueItems] = useState([
-        {
-            id: "000049",
-            title: "Print Job #000049",
-            document: "Your Document",
-            status: "Pending Review",
-            statusClass: "pending",
-            icon: "⏱",
-            pages: 12,
-            mode: "B&W",
-            hasImages: "Yes",
-            tokenCost: 24,
-            submitted: "Oct 22, 09:30 AM",
-            reviewed: null,
-        },
-        {
-            id: "000050",
-            title: "Print Job #000050",
-            document: "Your Document",
-            status: "Approved",
-            statusClass: "approved",
-            icon: "✓",
-            pages: 8,
-            mode: "B&W",
-            hasImages: "No",
-            tokenCost: 8,
-            submitted: "Oct 21, 02:20 PM",
-            reviewed: "Oct 21, 03:45 PM",
-        },
-        {
-            id: "000051",
-            title: "Print Job #000051",
-            document: "Your Document",
-            status: "Printed",
-            statusClass: "printed",
-            icon: "🖨",
-            pages: 15,
-            mode: "Color",
-            hasImages: "Yes",
-            tokenCost: 60,
-            submitted: "Oct 20, 10:00 AM",
-            reviewed: "Oct 20, 11:30 AM",
-        },
-        {
-            id: "000054",
-            title: "Print Job #000054",
-            document: "Your Document",
-            status: "Rejected",
-            statusClass: "rejected",
-            icon: "✕",
-            pages: 10,
-            mode: "B&W",
-            hasImages: "Yes",
-            tokenCost: 20,
-            submitted: "Oct 19, 11:00 AM",
-            reviewed: "Oct 19, 02:30 PM",
-            rejectionReason: "Document exceeds the maximum page limit for single submission. Please split into multiple requests.",
-        },
-    ]);
-
-    // History items state - can be dynamically updated
-    const [historyItems, setHistoryItems] = useState([
-        {
-            id: "h001",
-            documentTitle: "Research Paper - AI Ethics",
-            documentFilename: "ai-ethics-paper.pdf",
-            pages: 12,
-            mode: "B&W + Images",
-            tokens: 24,
-            status: "Pending",
-            statusClass: "status-pending",
-            submitted: "Oct 22, 2025, 09:30 AM",
-        },
-        {
-            id: "h002",
-            documentTitle: "Assignment 3 - Data Structures",
-            documentFilename: "assignment3.pdf",
-            pages: 8,
-            mode: "B&W",
-            tokens: 8,
-            status: "Approved",
-            statusClass: "status-approved",
-            submitted: "Oct 21, 2025, 02:20 PM",
-        },
-        {
-            id: "h003",
-            documentTitle: "Presentation Slides",
-            documentFilename: "presentation.pdf",
-            pages: 15,
-            mode: "Color + Images",
-            tokens: 60,
-            status: "Printed",
-            statusClass: "status-printed",
-            submitted: "Oct 20, 2025, 10:00 AM",
-        },
-        {
-            id: "h004",
-            documentTitle: "Lab Report - Chemistry",
-            documentFilename: "chem-lab-report.pdf",
-            pages: 10,
-            mode: "B&W + Images",
-            tokens: 20,
-            status: "Rejected",
-            statusClass: "status-rejected",
-            submitted: "Oct 19, 2025, 11:00 AM",
-        },
-    ]);
-
-    const navigate = useNavigate();
 
     // Calculate pagination for queue
     const totalPages = Math.ceil(queueItems.length / itemsPerPage);
@@ -290,35 +253,65 @@ export const StudentPage = () => {
     };
 
     // Actually submit the form after policy agreement
-    const confirmSubmission = () => {
+    const confirmSubmission = async () => {
         if (!policyAgreed) {
             showNotification('Please agree to the policies to continue', 'error');
             return;
         }
 
-        // Simulate submission
-        showNotification('Print request submitted successfully!', 'success');
+        try {
+            const response = await fetch(`/api/student/${studentId}/jobs`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    documentName,
+                    documentFilename: selectedFile.name,
+                    numPages: parseInt(numPages),
+                    numCopies: parseInt(numCopies),
+                    colorMode,
+                    paperSize,
+                    hasImages,
+                    tokenCost: estimatedCost
+                })
+            });
 
-        // Deduct tokens
-        setAvailableTokens(availableTokens - estimatedCost);
+            const data = await response.json();
 
-        // Reset form
-        setSelectedFile(null);
-        setDocumentName("");
-        setNumPages("");
-        setNumCopies("1");
-        setColorMode("bw");
-        setPaperSize("a4");
-        setHasImages("no");
+            if (response.ok) {
+                showNotification('Print request submitted successfully!', 'success');
 
-        // Close modal
-        setShowPolicyModal(false);
-        setPolicyAgreed(false);
+                // Deduct tokens
+                setAvailableTokens(availableTokens - estimatedCost);
 
-        // Switch to queue tab
-        setTimeout(() => {
-            setActiveTab("queue");
-        }, 1000);
+                // Reset form
+                setSelectedFile(null);
+                setDocumentName("");
+                setNumPages("");
+                setNumCopies("1");
+                setColorMode("bw");
+                setPaperSize("a4");
+                setHasImages("no");
+
+                // Close modal
+                setShowPolicyModal(false);
+                setPolicyAgreed(false);
+
+                // Refresh jobs
+                await fetchPrintJobs(studentId);
+
+                // Switch to queue tab
+                setTimeout(() => {
+                    setActiveTab("queue");
+                }, 1000);
+            } else {
+                showNotification(data.error || 'Failed to submit print request', 'error');
+            }
+        } catch (error) {
+            console.error('Submit error:', error);
+            showNotification('Failed to submit print request', 'error');
+        }
     };
 
     // Cancel policy modal
@@ -352,15 +345,65 @@ export const StudentPage = () => {
         setHistoryItems([newItem, ...historyItems]); // Add to beginning
     };
 
-    // Example function to remove an item from the history
-    const removeFromHistory = (itemId) => {
-        const newItems = historyItems.filter(item => item.id !== itemId);
-        setHistoryItems(newItems);
-        showNotification('Item removed from history', 'info');
-        // Adjust current page if needed
-        const newTotalPages = Math.ceil(newItems.length / historyItemsPerPage);
-        if (currentHistoryPage > newTotalPages && newTotalPages > 0) {
-            setCurrentHistoryPage(newTotalPages);
+    // Cancel/Reject a print job from history
+    const removeFromHistory = async (itemId) => {
+        if (!studentId) {
+            showNotification('Student ID not found. Please login again.', 'error');
+            return;
+        }
+
+        if (!window.confirm('Are you sure you want to cancel this print job? Your tokens will be refunded.')) {
+            return;
+        }
+
+        try {
+            // Call API to reject the job
+            const response = await fetch(`/api/student/jobs/${itemId}/cancel`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    studentId,
+                    reason: 'Cancelled by student' 
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                showNotification('Print job cancelled and tokens refunded', 'success');
+                
+                // Update the local state immediately
+                setQueueItems(prevItems => 
+                    prevItems.map(item => 
+                        item.id === itemId 
+                            ? { ...item, status: 'Rejected', statusClass: 'status-rejected', icon: '✕' }
+                            : item
+                    )
+                );
+                
+                setHistoryItems(prevItems => 
+                    prevItems.map(item => 
+                        item.id === itemId 
+                            ? { ...item, status: 'Rejected', statusClass: 'status-rejected', icon: '✕' }
+                            : item
+                    )
+                );
+                
+                // Refetch tokens as they should be refunded
+                const tokensResponse = await fetch(`/api/student/${studentId}/tokens`);
+                const tokensData = await tokensResponse.json();
+                setAvailableTokens(tokensData.tokens);
+                
+                // Refresh jobs from server to ensure consistency
+                await fetchPrintJobs(studentId);
+            } else {
+                showNotification(data.error || 'Failed to cancel print job', 'error');
+            }
+        } catch (error) {
+            console.error('Cancel job error:', error);
+            showNotification('Failed to cancel print job. Please try again.', 'error');
         }
     };
 
@@ -385,7 +428,7 @@ export const StudentPage = () => {
                     </div>
                     <div id="header-text">
                         <h1>Get Faxed: Student Printing Service Portal</h1>
-                        <p>User</p>
+                        <p>{studentName}</p>
                     </div>
                 </div>
                 <div id="header-right">
