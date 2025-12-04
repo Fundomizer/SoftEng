@@ -12,7 +12,7 @@
 ## Student Accounts
 
 ### Student 1 - Alice Johnson
-**Student ID:** `2234534`
+**Student ID:** `   `
 **Password:** Any password (authentication accepts any password for demo)
 **Email:** alice.johnson@slu.edu
 **Name:** Alice Johnson

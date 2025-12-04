@@ -458,17 +458,17 @@ export const StudentPage = () => {
 
             <div id="stats-container">
                 <StatCard
-                    label="Queue Pending" value={3} badge={"Review"} type={"stat-card-pending"}
+                    label="Queue Pending" value={queueItems.filter(job => job.status === 'Pending').length} badge={"Review"} type={"stat-card-pending"}
                 />
                 <StatCard
-                    label="Queue Approved" value={3} badge="Ready" type="stat-card-approved"
+                    label="Queue Approved" value={queueItems.filter(job => job.status === 'Approved').length} badge="Ready" type="stat-card-approved"
                 />
                 <StatCard
-                    label="Total Completed" value={3} badge="Done" type="stat-card-completed"
+                    label="Total Completed" value={queueItems.filter(job => job.status === 'Printed').length} badge="Done" type="stat-card-completed"
                 />
 
                 <StatCard
-                    label="Total Rejected" value={2} badge="Denied" type="stat-card-rejected"
+                    label="Total Rejected" value={queueItems.filter(job => job.status === 'Rejected').length} badge="Denied" type="stat-card-rejected"
                 />
             </div>
 
