@@ -85,7 +85,7 @@
 
 .admin-dashboard__grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
     margin-bottom: 2rem;
 }
@@ -230,4 +230,192 @@
 
 .admin-dashboard__cancel-btn:hover {
     background-color: #CBD5E0;
+}
+
+/* Tab Section Titles */
+.admin-dashboard__section-title {
+    color: #000000;
+}
+
+.admin-dashboard__section-description {
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+/* Loading and Empty States */
+.admin-dashboard__loading,
+.admin-dashboard__empty-state {
+    text-align: center;
+    padding: 2rem;
+}
+
+.admin-dashboard__empty-state {
+    color: #666;
+}
+
+/* Job Cards */
+.admin-dashboard__job-card {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.admin-dashboard__job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.admin-dashboard__job-title {
+    color: #003d73;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.admin-dashboard__job-filename {
+    color: #374151;
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+}
+
+.admin-dashboard__job-student {
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.admin-dashboard__job-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-end;
+}
+
+.admin-dashboard__job-action-row {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    width: 212.65px;
+}
+
+/* Job Action Buttons */
+.admin-dashboard__btn-view {
+    width: 212.65px;
+    height: 36px;
+    padding: 0.5rem 1rem;
+    background-color: white;
+    color: #003d73;
+    border: 1px solid #003d73;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.admin-dashboard__btn-view:hover {
+    background-color: #f0f9ff;
+}
+
+.admin-dashboard__btn-approve {
+    width: 103.825px;
+    height: 36px;
+    padding: 0.5rem 1rem;
+    background-color: #10b981;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.admin-dashboard__btn-approve:hover {
+    background-color: #059669;
+}
+
+.admin-dashboard__btn-reject {
+    width: 103.825px;
+    height: 36px;
+    padding: 0.5rem 1rem;
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.admin-dashboard__btn-reject:hover {
+    background-color: #dc2626;
+}
+
+.admin-dashboard__btn-printed {
+    width: 212.65px;
+    height: 36px;
+    padding: 0.5rem 1rem;
+    background-color: #003366;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.admin-dashboard__btn-printed:hover {
+    background-color: #002244;
+}
+
+/* Job Details Grid */
+.admin-dashboard__job-details {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #f3f4f6;
+}
+
+.admin-dashboard__detail-label {
+    color: #9ca3af;
+    font-size: 0.8rem;
+    margin-bottom: 0.25rem;
+}
+
+.admin-dashboard__detail-value {
+    color: #374151;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* History Status Badge */
+.admin-dashboard__history-header {
+    margin-bottom: 1rem;
+}
+
+.admin-dashboard__status-badge {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.admin-dashboard__status-badge--printed {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.admin-dashboard__status-badge--rejected {
+    background-color: #fee2e2;
+    color: #991b1b;
 }

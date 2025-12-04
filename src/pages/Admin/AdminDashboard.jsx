@@ -119,7 +119,7 @@ export function AdminDashboard() {
             // Open the document in a new tab ready for printing
             const url = `/api/documents/${encodeURIComponent(filename)}`;
             const printWindow = window.open(url, '_blank');
-            
+
             // Wait for the document to load, then trigger print dialog
             if (printWindow) {
                 printWindow.onload = function() {
@@ -144,7 +144,7 @@ export function AdminDashboard() {
                 </div>
                 <div className="admin-dashboard__header-right">
                     <div className="admin-dashboard__counter">
-                        <span>Total Requests: <strong>{stats.total}</strong></span>
+                        <span>Pending Requests: <strong>{stats.pending}</strong></span>
                     </div>
                     <button className="admin-dashboard__logout-btn" onClick={() => setShowLogoutPopup(true)}>
                         Logout
@@ -155,23 +155,21 @@ export function AdminDashboard() {
             <main className="admin-dashboard__content">
                 <div className="admin-dashboard__grid">
                     <AdminDashboardCard
-                        title="Pending Review"
-                        description="View and manage print requests awaiting review."
-                    />
-
-                    <AdminDashboardCard
                         title="Print Queue"
                         description="Track approved requests currently in the print queue."
+                        count={stats.approved}
                     />
 
                     <AdminDashboardCard
                         title="Completed"
                         description="View all successfully completed print requests."
+                        count={stats.printed}
                     />
 
                     <AdminDashboardCard
                         title="Rejected"
                         description="View rejected print requests and reasons."
+                        count={stats.rejected}
                     />
                 </div>
 
@@ -206,131 +204,74 @@ export function AdminDashboard() {
                 <div className="admin-dashboard__tab-content">
                     {activeTab === "pending" && (
                         <div>
-                            <h2 style={{ color: '#000000' }}>Pending Print Requests</h2>
-                            <p style={{ color: '#6b7280', fontSize: '0.9rem', marginTop: '0.5rem' }}>
+                            <h2 className="admin-dashboard__section-title">Pending Print Requests</h2>
+                            <p className="admin-dashboard__section-description">
                                 Review and approve or reject student print requests
                             </p>
 
                             {loading ? (
-                                <div style={{ textAlign: 'center', padding: '2rem' }}>Loading...</div>
+                                <div className="admin-dashboard__loading">Loading...</div>
                             ) : jobs.filter(job => job.status === 'pending').length === 0 ? (
-                                <div style={{ textAlign: 'center', padding: '2rem', color: '#666' }}>
+                                <div className="admin-dashboard__empty-state">
                                     No pending requests
                                 </div>
                             ) : (
                                 jobs.filter(job => job.status === 'pending').map(job => (
-                                    <div key={job.id} style={{
-                                        marginTop: '2rem',
-                                        padding: '1.5rem',
-                                        border: '1px solid #e5e7eb',
-                                        borderRadius: '8px',
-                                        backgroundColor: '#ffffff'
-                                    }}>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
+                                    <div key={job.id} className="admin-dashboard__job-card">
+                                        <div className="admin-dashboard__job-header">
                                             <div>
-                                                <div style={{ color: '#003d73', fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.5rem' }}>
+                                                <div className="admin-dashboard__job-title">
                                                     {job.document_name}
                                                 </div>
-                                                <div style={{ color: '#374151', fontSize: '0.95rem', marginBottom: '0.75rem' }}>
+                                                <div className="admin-dashboard__job-filename">
                                                     {job.document_filename}
                                                 </div>
-                                                <div style={{ color: '#6b7280', fontSize: '0.9rem' }}>
+                                                <div className="admin-dashboard__job-student">
                                                     {job.first_name} {job.last_name} ({job.student_id})
                                                 </div>
                                             </div>
-                                            <div style={{
-                                                display: 'flex',
-                                                flexDirection: 'column',
-                                                gap: '0.5rem',
-                                                alignItems: 'flex-end'
-                                            }}>
-                                                <button onClick={() => handleViewDocument(job.document_filename)} style={{
-                                                    width: '212.65px',
-                                                    height: '36px',
-                                                    padding: '0.5rem 1rem',
-                                                    backgroundColor: 'white',
-                                                    color: '#003d73',
-                                                    border: '1px solid #003d73',
-                                                    borderRadius: '8px',
-                                                    fontSize: '0.875rem',
-                                                    fontWeight: '500',
-                                                    cursor: 'pointer',
-                                                    transition: 'all 0.2s',
-                                                    opacity: 1
-                                                }}>
+                                            <div className="admin-dashboard__job-actions">
+                                                <button onClick={() => handleViewDocument(job.document_filename)} className="admin-dashboard__btn-view">
                                                     View Document
                                                 </button>
-                                                <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end', width: '212.65px' }}>
-                                                    <button onClick={() => handleApprove(job.id)} style={{
-                                                        width: '103.825px',
-                                                        height: '36px',
-                                                        padding: '0.5rem 1rem',
-                                                        backgroundColor: '#10b981',
-                                                        color: 'white',
-                                                        border: 'none',
-                                                        borderRadius: '8px',
-                                                        fontSize: '0.875rem',
-                                                        fontWeight: '500',
-                                                        cursor: 'pointer',
-                                                        transition: 'background-color 0.2s',
-                                                        opacity: 1
-                                                    }}>
+                                                <div className="admin-dashboard__job-action-row">
+                                                    <button onClick={() => handleApprove(job.id)} className="admin-dashboard__btn-approve">
                                                         Approve
                                                     </button>
                                                     <button onClick={() => {
                                                         const reason = prompt('Enter rejection reason:');
                                                         if (reason) handleReject(job.id, reason);
-                                                    }} style={{
-                                                        width: '103.825px',
-                                                        height: '36px',
-                                                        padding: '0.5rem 1rem',
-                                                        backgroundColor: '#ef4444',
-                                                        color: 'white',
-                                                        border: 'none',
-                                                        borderRadius: '8px',
-                                                        fontSize: '0.875rem',
-                                                        fontWeight: '500',
-                                                        cursor: 'pointer',
-                                                        transition: 'background-color 0.2s',
-                                                        opacity: 1
-                                                    }}>
+                                                    }} className="admin-dashboard__btn-reject">
                                                         Reject
                                                     </button>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div style={{
-                                            display: 'grid',
-                                            gridTemplateColumns: 'repeat(6, 1fr)',
-                                            gap: '1rem',
-                                            marginTop: '1rem',
-                                            paddingTop: '1rem',
-                                            borderTop: '1px solid #f3f4f6'
-                                        }}>
+                                        <div className="admin-dashboard__job-details">
                                             <div>
-                                                <div style={{ color: '#9ca3af', fontSize: '0.8rem', marginBottom: '0.25rem' }}>Pages</div>
-                                                <div style={{ color: '#374151', fontSize: '0.9rem', fontWeight: '500' }}>{job.num_pages}</div>
+                                                <div className="admin-dashboard__detail-label">Pages</div>
+                                                <div className="admin-dashboard__detail-value">{job.num_pages}</div>
                                             </div>
                                             <div>
-                                                <div style={{ color: '#9ca3af', fontSize: '0.8rem', marginBottom: '0.25rem' }}>Type</div>
-                                                <div style={{ color: '#374151', fontSize: '0.9rem', fontWeight: '500' }}>{job.color_mode === 'bw' ? 'B&W' : 'Color'}</div>
+                                                <div className="admin-dashboard__detail-label">Type</div>
+                                                <div className="admin-dashboard__detail-value">{job.color_mode === 'bw' ? 'B&W' : 'Color'}</div>
                                             </div>
                                             <div>
-                                                <div style={{ color: '#9ca3af', fontSize: '0.8rem', marginBottom: '0.25rem' }}>Paper Size</div>
-                                                <div style={{ color: '#374151', fontSize: '0.9rem', fontWeight: '500' }}>{job.paper_size.toUpperCase()}</div>
+                                                <div className="admin-dashboard__detail-label">Paper Size</div>
+                                                <div className="admin-dashboard__detail-value">{job.paper_size.toUpperCase()}</div>
                                             </div>
                                             <div>
-                                                <div style={{ color: '#9ca3af', fontSize: '0.8rem', marginBottom: '0.25rem' }}>Images</div>
-                                                <div style={{ color: '#374151', fontSize: '0.9rem', fontWeight: '500' }}>{job.has_images === 'yes' ? 'Yes' : 'No'}</div>
+                                                <div className="admin-dashboard__detail-label">Images</div>
+                                                <div className="admin-dashboard__detail-value">{job.has_images === 'yes' ? 'Yes' : 'No'}</div>
                                             </div>
                                             <div>
-                                                <div style={{ color: '#9ca3af', fontSize: '0.8rem', marginBottom: '0.25rem' }}>Token Cost</div>
-                                                <div style={{ color: '#374151', fontSize: '0.9rem', fontWeight: '500' }}>{job.token_cost}</div>
+                                                <div className="admin-dashboard__detail-label">Token Cost</div>
+                                                <div className="admin-dashboard__detail-value">{job.token_cost}</div>
                                             </div>
                                             <div>
-                                                <div style={{ color: '#9ca3af', fontSize: '0.8rem', marginBottom: '0.25rem' }}>Date Submitted</div>
-                                                <div style={{ color: '#374151', fontSize: '0.9rem', fontWeight: '500' }}>
+                                                <div className="admin-dashboard__detail-label">Date Submitted</div>
+                                                <div className="admin-dashboard__detail-value">
                                                     {new Date(job.submitted_at).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                                                 </div>
                                             </div>
@@ -342,110 +283,66 @@ export function AdminDashboard() {
                     )}
                     {activeTab === "queue" && (
                         <div>
-                            <h2 style={{ color: '#000000' }}>Print Queue</h2>
-                            <p style={{ color: '#6b7280', fontSize: '0.9rem', marginTop: '0.5rem' }}>
+                            <h2 className="admin-dashboard__section-title">Print Queue</h2>
+                            <p className="admin-dashboard__section-description">
                                 Track approved requests currently in the print queue
                             </p>
 
                             {loading ? (
-                                <div style={{ textAlign: 'center', padding: '2rem' }}>Loading...</div>
+                                <div className="admin-dashboard__loading">Loading...</div>
                             ) : jobs.filter(job => job.status === 'approved').length === 0 ? (
-                                <div style={{ textAlign: 'center', padding: '2rem', color: '#666' }}>
+                                <div className="admin-dashboard__empty-state">
                                     No jobs in queue
                                 </div>
                             ) : (
                                 jobs.filter(job => job.status === 'approved').map(job => (
-                                    <div key={job.id} style={{
-                                        marginTop: '2rem',
-                                        padding: '1.5rem',
-                                        border: '1px solid #e5e7eb',
-                                        borderRadius: '8px',
-                                        backgroundColor: '#ffffff'
-                                    }}>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
+                                    <div key={job.id} className="admin-dashboard__job-card">
+                                        <div className="admin-dashboard__job-header">
                                             <div>
-                                                <div style={{ color: '#003d73', fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.5rem' }}>
+                                                <div className="admin-dashboard__job-title">
                                                     {job.document_name}
                                                 </div>
-                                                <div style={{ color: '#374151', fontSize: '0.95rem', marginBottom: '0.75rem' }}>
+                                                <div className="admin-dashboard__job-filename">
                                                     {job.document_filename}
                                                 </div>
-                                                <div style={{ color: '#6b7280', fontSize: '0.9rem' }}>
+                                                <div className="admin-dashboard__job-student">
                                                     {job.first_name} {job.last_name} ({job.student_id})
                                                 </div>
                                             </div>
-                                            <div style={{
-                                                display: 'flex',
-                                                flexDirection: 'column',
-                                                gap: '0.5rem',
-                                                alignItems: 'flex-end'
-                                            }}>
-                                                <button onClick={() => handleViewDocument(job.document_filename)} style={{
-                                                    width: '212.65px',
-                                                    height: '36px',
-                                                    padding: '0.5rem 1rem',
-                                                    backgroundColor: 'white',
-                                                    color: '#003d73',
-                                                    border: '1px solid #003d73',
-                                                    borderRadius: '8px',
-                                                    fontSize: '0.875rem',
-                                                    fontWeight: '500',
-                                                    cursor: 'pointer',
-                                                    transition: 'all 0.2s',
-                                                    opacity: 1
-                                                }}>
+                                            <div className="admin-dashboard__job-actions">
+                                                <button onClick={() => handleViewDocument(job.document_filename)} className="admin-dashboard__btn-view">
                                                     View Document
                                                 </button>
-                                                <button onClick={() => handleMarkPrinted(job.id)} style={{
-                                                    width: '212.65px',
-                                                    height: '36px',
-                                                    padding: '0.5rem 1rem',
-                                                    backgroundColor: '#003366',
-                                                    color: 'white',
-                                                    border: 'none',
-                                                    borderRadius: '8px',
-                                                    fontSize: '0.875rem',
-                                                    fontWeight: '500',
-                                                    cursor: 'pointer',
-                                                    transition: 'background-color 0.2s',
-                                                    opacity: 1
-                                                }}>
+                                                <button onClick={() => handleMarkPrinted(job.id)} className="admin-dashboard__btn-printed">
                                                     Mark Printed
                                                 </button>
                                             </div>
                                         </div>
 
-                                        <div style={{
-                                            display: 'grid',
-                                            gridTemplateColumns: 'repeat(6, 1fr)',
-                                            gap: '1rem',
-                                            marginTop: '1rem',
-                                            paddingTop: '1rem',
-                                            borderTop: '1px solid #f3f4f6'
-                                        }}>
+                                        <div className="admin-dashboard__job-details">
                                             <div>
-                                                <div style={{ color: '#9ca3af', fontSize: '0.8rem', marginBottom: '0.25rem' }}>Pages</div>
-                                                <div style={{ color: '#374151', fontSize: '0.9rem', fontWeight: '500' }}>{job.num_pages}</div>
+                                                <div className="admin-dashboard__detail-label">Pages</div>
+                                                <div className="admin-dashboard__detail-value">{job.num_pages}</div>
                                             </div>
                                             <div>
-                                                <div style={{ color: '#9ca3af', fontSize: '0.8rem', marginBottom: '0.25rem' }}>Type</div>
-                                                <div style={{ color: '#374151', fontSize: '0.9rem', fontWeight: '500' }}>{job.color_mode === 'bw' ? 'B&W' : 'Color'}</div>
+                                                <div className="admin-dashboard__detail-label">Type</div>
+                                                <div className="admin-dashboard__detail-value">{job.color_mode === 'bw' ? 'B&W' : 'Color'}</div>
                                             </div>
                                             <div>
-                                                <div style={{ color: '#9ca3af', fontSize: '0.8rem', marginBottom: '0.25rem' }}>Paper Size</div>
-                                                <div style={{ color: '#374151', fontSize: '0.9rem', fontWeight: '500' }}>{job.paper_size.toUpperCase()}</div>
+                                                <div className="admin-dashboard__detail-label">Paper Size</div>
+                                                <div className="admin-dashboard__detail-value">{job.paper_size.toUpperCase()}</div>
                                             </div>
                                             <div>
-                                                <div style={{ color: '#9ca3af', fontSize: '0.8rem', marginBottom: '0.25rem' }}>Images</div>
-                                                <div style={{ color: '#374151', fontSize: '0.9rem', fontWeight: '500' }}>{job.has_images === 'yes' ? 'Yes' : 'No'}</div>
+                                                <div className="admin-dashboard__detail-label">Images</div>
+                                                <div className="admin-dashboard__detail-value">{job.has_images === 'yes' ? 'Yes' : 'No'}</div>
                                             </div>
                                             <div>
-                                                <div style={{ color: '#9ca3af', fontSize: '0.8rem', marginBottom: '0.25rem' }}>Token Cost</div>
-                                                <div style={{ color: '#374151', fontSize: '0.9rem', fontWeight: '500' }}>{job.token_cost}</div>
+                                                <div className="admin-dashboard__detail-label">Token Cost</div>
+                                                <div className="admin-dashboard__detail-value">{job.token_cost}</div>
                                             </div>
                                             <div>
-                                                <div style={{ color: '#9ca3af', fontSize: '0.8rem', marginBottom: '0.25rem' }}>Date Submitted</div>
-                                                <div style={{ color: '#374151', fontSize: '0.9rem', fontWeight: '500' }}>
+                                                <div className="admin-dashboard__detail-label">Date Submitted</div>
+                                                <div className="admin-dashboard__detail-value">
                                                     {new Date(job.submitted_at).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                                                 </div>
                                             </div>
@@ -457,80 +354,59 @@ export function AdminDashboard() {
                     )}
                     {activeTab === "history" && (
                         <div>
-                            <h2 style={{ color: '#000000' }}>History</h2>
-                            <p style={{ color: '#6b7280', fontSize: '0.9rem', marginTop: '0.5rem' }}>
+                            <h2 className="admin-dashboard__section-title">History</h2>
+                            <p className="admin-dashboard__section-description">
                                 View all completed and rejected print requests
                             </p>
 
                             {loading ? (
-                                <div style={{ textAlign: 'center', padding: '2rem' }}>Loading...</div>
+                                <div className="admin-dashboard__loading">Loading...</div>
                             ) : jobs.filter(job => job.status === 'printed' || job.status === 'rejected').length === 0 ? (
-                                <div style={{ textAlign: 'center', padding: '2rem', color: '#666' }}>
+                                <div className="admin-dashboard__empty-state">
                                     No history items
                                 </div>
                             ) : (
                                 jobs.filter(job => job.status === 'printed' || job.status === 'rejected').map(job => (
-                                    <div key={job.id} style={{
-                                        marginTop: '2rem',
-                                        padding: '1.5rem',
-                                        border: '1px solid #e5e7eb',
-                                        borderRadius: '8px',
-                                        backgroundColor: '#ffffff'
-                                    }}>
-                                        <div style={{ marginBottom: '1rem' }}>
-                                            <div style={{ color: '#003d73', fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.5rem' }}>
+                                    <div key={job.id} className="admin-dashboard__job-card">
+                                        <div className="admin-dashboard__history-header">
+                                            <div className="admin-dashboard__job-title">
                                                 {job.document_name}
                                             </div>
-                                            <div style={{ color: '#374151', fontSize: '0.95rem', marginBottom: '0.75rem' }}>
+                                            <div className="admin-dashboard__job-filename">
                                                 {job.document_filename}
                                             </div>
-                                            <div style={{ color: '#6b7280', fontSize: '0.9rem' }}>
+                                            <div className="admin-dashboard__job-student">
                                                 {job.first_name} {job.last_name} ({job.student_id})
                                             </div>
-                                            <div style={{ 
-                                                marginTop: '0.5rem',
-                                                padding: '0.5rem',
-                                                backgroundColor: job.status === 'printed' ? '#d1fae5' : '#fee2e2',
-                                                color: job.status === 'printed' ? '#065f46' : '#991b1b',
-                                                borderRadius: '4px',
-                                                fontSize: '0.875rem',
-                                                fontWeight: '500'
-                                            }}>
+                                            <div className={`admin-dashboard__status-badge ${job.status === 'printed' ? 'admin-dashboard__status-badge--printed' : 'admin-dashboard__status-badge--rejected'}`}>
                                                 Status: {job.status.charAt(0).toUpperCase() + job.status.slice(1)}
                                             </div>
                                         </div>
 
-                                        <div style={{
-                                            display: 'grid',
-                                            gridTemplateColumns: 'repeat(6, 1fr)',
-                                            gap: '1rem',
-                                            marginTop: '1rem',
-                                            paddingTop: '1rem',
-                                            borderTop: '1px solid #f3f4f6'
-                                        }}>
+                                        <div className="admin-dashboard__job-details">
                                             <div>
-                                                <div style={{ color: '#9ca3af', fontSize: '0.8rem', marginBottom: '0.25rem' }}>Pages</div>
-                                                <div style={{ color: '#374151', fontSize: '0.9rem', fontWeight: '500' }}>{job.num_pages}</div>
+                                                <div className="admin-dashboard__detail-label">Pages</div>
+                                                <div className="admin-dashboard__detail-value">{job.num_pages}</div>
                                             </div>
                                             <div>
-                                                <div style={{ color: '#9ca3af', fontSize: '0.8rem', marginBottom: '0.25rem' }}>Type</div>
-                                                <div style={{ color: '#374151', fontSize: '0.9rem', fontWeight: '500' }}>{job.color_mode === 'bw' ? 'B&W' : 'Color'}</div>
+                                                <div className="admin-dashboard__detail-label">Type</div>
+                                                <div className="admin-dashboard__detail-value">{job.color_mode === 'bw' ? 'B&W' : 'Color'}</div>
                                             </div>
                                             <div>
-                                                <div style={{ color: '#9ca3af', fontSize: '0.8rem', marginBottom: '0.25rem' }}>Paper Size</div>
-                                                <div style={{ color: '#374151', fontSize: '0.9rem', fontWeight: '500' }}>{job.paper_size.toUpperCase()}</div>
+                                                <div className="admin-dashboard__detail-label">Paper Size</div>
+                                                <div className="admin-dashboard__detail-value">{job.paper_size.toUpperCase()}</div>
                                             </div>
                                             <div>
-                                                <div style={{ color: '#9ca3af', fontSize: '0.8rem', marginBottom: '0.25rem' }}>Images</div>
-                                                <div style={{ color: '#374151', fontSize: '0.9rem', fontWeight: '500' }}>{job.has_images === 'yes' ? 'Yes' : 'No'}</div>
+                                                <div className="admin-dashboard__detail-label">Images</div>
+                                                <div className="admin-dashboard__detail-value">{job.has_images === 'yes' ? 'Yes' : 'No'}</div>
                                             </div>
                                             <div>
-                                                <div style={{ color: '#9ca3af', fontSize: '0.8rem', marginBottom: '0.25rem' }}>Token Cost</div>
-                                                <div style={{ color: '#374151', fontSize: '0.9rem', fontWeight: '500' }}>{job.token_cost}</div>
+                                                <div className="admin-dashboard__detail-label">Token Cost</div>
+                                                <div className="admin-dashboard__detail-value">{job.token_cost}</div>
                                             </div>
                                             <div>
-                                                <div style={{ color: '#9ca3af', fontSize: '0.8rem', marginBottom: '0.25rem' }}>Date Submitted</div>
-                                                <div style={{ color: '#374151', fontSize: '0.9rem', fontWeight: '500' }}>
+                                                <div className="admin-dashboard__detail-label">Date Submitted</div>
+                                                <div className="admin-dashboard__detail-value">
                                                     {new Date(job.submitted_at).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                                                 </div>
                                             </div>
