@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { TextInput } from "../../components/TextInput"
 import "../../styles/LoginPageStyle.css"
+import { HOST } from "../../config"
 
 export function AdminLogin() {
     const navigate = useNavigate()
@@ -16,7 +16,7 @@ export function AdminLogin() {
         setLoading(true)
 
         try {
-            const response = await fetch('/api/auth/admin/login', {
+            const response = await fetch(`${HOST}:3001/api/auth/admin/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

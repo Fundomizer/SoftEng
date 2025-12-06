@@ -5,6 +5,7 @@ import "../../styles/LoginPageStyle.css"
 import sluLogo from "../../assets/slu_logo.png"
 import loginIcon from "../../assets/icons/login_icon.png"
 import googleIcon from "../../assets/icons/google_icon.png"
+import { HOST } from "../../config"
 
 export function LoginPage() {
     const navigate = useNavigate()
@@ -19,7 +20,7 @@ export function LoginPage() {
         setLoading(true)
 
         try {
-            const response = await fetch('/api/auth/student/login', {
+            const response = await fetch(`${HOST}:3001/api/auth/student/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
