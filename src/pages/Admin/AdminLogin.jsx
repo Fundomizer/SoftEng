@@ -64,10 +64,10 @@ export function AdminLogin() {
                     {error && <div style={{ color: 'red', marginBottom: '1rem', textAlign: 'center' }}>{error}</div>}
                     <form onSubmit={handleSignIn}>
                         <div style={{ marginBottom: '1rem' }}>
-                            <label style={{ display: 'block', marginBottom: '0.5rem', color: '#003366', fontWeight: '500' }}>Admin ID</label>
+                            <label style={{ display: 'block', marginBottom: '0.5rem', color: '#003366', fontWeight: '500' }}>User ID</label>
                             <input
                                 type="text"
-                                placeholder="Enter your admin ID"
+                                placeholder="Enter your user ID"
                                 value={adminId}
                                 onChange={(e) => setAdminId(e.target.value)}
                                 required
