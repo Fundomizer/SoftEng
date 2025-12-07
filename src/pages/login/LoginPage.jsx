@@ -72,10 +72,10 @@ export function LoginPage() {
                     {error && <div style={{ color: 'red', marginBottom: '1rem', textAlign: 'center' }}>{error}</div>}
                     <form onSubmit={handleLogin}>
                         <div style={{ marginBottom: '1rem' }}>
-                            <label style={{ display: 'block', marginBottom: '0.5rem', color: '#003366', fontWeight: '500' }}>Student ID</label>
+                            <label style={{ display: 'block', marginBottom: '0.5rem', color: '#003366', fontWeight: '500' }}>User ID</label>
                             <input
                                 type="text"
-                                placeholder="Enter your student ID"
+                                placeholder="Enter your user ID"
                                 value={id}
                                 onChange={(e) => setId(e.target.value)}
                                 required
