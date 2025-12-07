@@ -132,7 +132,7 @@ export function AdminDashboard() {
 
     const handleLogout = () => {
         sessionStorage.removeItem('admin');
-        navigate('/admin');
+        navigate('/');
         setShowLogoutPopup(false);
     };
 
