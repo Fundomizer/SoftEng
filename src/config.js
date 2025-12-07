@@ -1,5 +1,5 @@
-const HOST = window.location.origin
-const PORT = process.env.PORT || 3001;
+const HOST = `http://${window.location.hostname}`
+const PORT = 3001;
 const API_BASE = `${HOST.replace(/\/$/, '')}:${PORT}`;
 
-export {HOST, PORT, API_BASE}
+export { HOST, PORT, API_BASE }

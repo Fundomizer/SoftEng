@@ -20,7 +20,7 @@ export function LoginPage() {
         setLoading(true)
 
         try {
-            const response = await fetch(`${HOST}:3001/api/auth/student/login`, {
+            const response = await fetch(`${HOST}:${PORT}/api/auth/student/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -62,9 +62,9 @@ export function LoginPage() {
                     <form onSubmit={handleLogin}>
                         <div style={{ marginBottom: '1rem' }}>
                             <label style={{ display: 'block', marginBottom: '0.5rem', color: '#003366', fontWeight: '500' }}>Student ID</label>
-                            <input 
-                                type="text" 
-                                placeholder="Enter your student ID" 
+                            <input
+                                type="text"
+                                placeholder="Enter your student ID"
                                 value={studentId}
                                 onChange={(e) => setStudentId(e.target.value)}
                                 required
@@ -79,9 +79,9 @@ export function LoginPage() {
                         </div>
                         <div style={{ marginBottom: '1rem' }}>
                             <label style={{ display: 'block', marginBottom: '0.5rem', color: '#003366', fontWeight: '500' }}>Password</label>
-                            <input 
-                                type="password" 
-                                placeholder="Enter your password" 
+                            <input
+                                type="password"
+                                placeholder="Enter your password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required

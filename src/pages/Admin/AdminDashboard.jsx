@@ -4,7 +4,7 @@ import "../../styles/AdminDashboardStyle.css"
 import sluLogo from "../../assets/slu_logo.png"
 import AdminDashboardCard from "../../components/AdminComponents/AdminDashboardCard"
 import TabButton from "../../components/Tab"
-import { HOST } from "../../config"
+import { HOST, PORT } from "../../config"
 
 export function AdminDashboard() {
     const navigate = useNavigate()
@@ -54,7 +54,7 @@ export function AdminDashboard() {
 
     const fetchStats = async () => {
         try {
-            const response = await fetch(`${HOST}:3001/api/admin/stats`);
+            const response = await fetch(`${HOST}:${PORT}/api/admin/stats`);
             const data = await response.json();
             setStats(data);
         } catch (error) {
@@ -64,7 +64,7 @@ export function AdminDashboard() {
 
     const handleApprove = async (jobId) => {
         try {
-            const response = await fetch(`${HOST}:3001/api/admin/jobs/${jobId}/approve`, {
+            const response = await fetch(`${HOST}:${PORT}/api/admin/jobs/${jobId}/approve`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ export function AdminDashboard() {
 
     const handleReject = async (jobId, reason) => {
         try {
-            const response = await fetch(`${HOST}:3001/api/admin/jobs/${jobId}/reject`, {
+            const response = await fetch(`${HOST}:${PORT}/api/admin/jobs/${jobId}/reject`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ export function AdminDashboard() {
 
     const handleMarkPrinted = async (jobId) => {
         try {
-            const response = await fetch(`${HOST}:3001/api/admin/jobs/${jobId}/printed`, {
+            const response = await fetch(`${HOST}:${PORT}/api/admin/jobs/${jobId}/printed`, {
                 method: 'PUT'
             });
 

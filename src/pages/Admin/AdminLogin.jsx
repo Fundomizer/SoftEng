@@ -16,7 +16,7 @@ export function AdminLogin() {
         setLoading(true)
 
         try {
-            const response = await fetch(`${HOST}:3001/api/auth/admin/login`, {
+            const response = await fetch(`${HOST}:${PORT}/api/auth/admin/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -58,9 +58,9 @@ export function AdminLogin() {
                     <form onSubmit={handleSignIn}>
                         <div style={{ marginBottom: '1rem' }}>
                             <label style={{ display: 'block', marginBottom: '0.5rem', color: '#003366', fontWeight: '500' }}>Admin ID</label>
-                            <input 
-                                type="text" 
-                                placeholder="Enter your admin ID" 
+                            <input
+                                type="text"
+                                placeholder="Enter your admin ID"
                                 value={adminId}
                                 onChange={(e) => setAdminId(e.target.value)}
                                 required
@@ -75,9 +75,9 @@ export function AdminLogin() {
                         </div>
                         <div style={{ marginBottom: '1rem' }}>
                             <label style={{ display: 'block', marginBottom: '0.5rem', color: '#003366', fontWeight: '500' }}>Password</label>
-                            <input 
-                                type="password" 
-                                placeholder="Enter your password" 
+                            <input
+                                type="password"
+                                placeholder="Enter your password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required

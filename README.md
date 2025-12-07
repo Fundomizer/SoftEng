@@ -42,8 +42,12 @@ DB_NAME=get_faxed_printing_service
 PORT=3001
 ```
 
+Port 3001 will be what port the backend will be serving and where the frontend will be looking for resources
+
 Afterwards run the server use:
 
 ```
 npm run server
 ```
+
+See [QUICKSTART.md](./QUICKSTART.md) for full guide in setting up the project

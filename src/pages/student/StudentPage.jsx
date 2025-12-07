@@ -62,7 +62,7 @@ export const StudentPage = () => {
     // Fetch print jobs from API
     const fetchPrintJobs = async (id) => {
         try {
-            const response = await fetch(`${HOST}:3001/api/student/${id}/jobs`);
+            const response = await fetch(`${HOST}:${PORT}/api/student/${id}/jobs`);
             const jobs = await response.json();
 
             // Transform jobs for display
@@ -80,10 +80,10 @@ export const StudentPage = () => {
                 hasImages: job.has_images === 'yes' ? 'Yes' : 'No',
                 tokens: job.token_cost,
                 tokenCost: job.token_cost,
-                submitted: new Date(job.submitted_at).toLocaleString('en-US', { 
+                submitted: new Date(job.submitted_at).toLocaleString('en-US', {
                     month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit'
                 }),
-                reviewed: job.reviewed_at ? new Date(job.reviewed_at).toLocaleString('en-US', { 
+                reviewed: job.reviewed_at ? new Date(job.reviewed_at).toLocaleString('en-US', {
                     month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
                 }) : null,
                 rejectionReason: job.rejection_reason
@@ -277,7 +277,7 @@ export const StudentPage = () => {
             formData.append('hasImages', hasImages);
             formData.append('tokenCost', estimatedCost);
 
-            const response = await fetch(`${HOST}:3001/api/student/${studentId}/jobs`, {
+            const response = await fetch(`${HOST}:${PORT}/api/student/${studentId}/jobs`, {
                 method: 'POST',
                 body: formData
             });
@@ -363,14 +363,14 @@ export const StudentPage = () => {
 
         try {
             // Call API to reject the job
-            const response = await fetch(`${HOST}:3001/api/student/jobs/${itemId}/cancel`, {
+            const response = await fetch(`${HOST}:${PORT}/api/student/jobs/${itemId}/cancel`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ 
+                body: JSON.stringify({
                     studentId,
-                    reason: 'Cancelled by student' 
+                    reason: 'Cancelled by student'
                 })
             });
 
@@ -378,29 +378,29 @@ export const StudentPage = () => {
 
             if (response.ok) {
                 showNotification('Print job cancelled and tokens refunded', 'success');
-                
+
                 // Update the local state immediately
-                setQueueItems(prevItems => 
-                    prevItems.map(item => 
-                        item.id === itemId 
+                setQueueItems(prevItems =>
+                    prevItems.map(item =>
+                        item.id === itemId
                             ? { ...item, status: 'Rejected', statusClass: 'status-rejected', icon: '✕' }
                             : item
                     )
                 );
-                
-                setHistoryItems(prevItems => 
-                    prevItems.map(item => 
-                        item.id === itemId 
+
+                setHistoryItems(prevItems =>
+                    prevItems.map(item =>
+                        item.id === itemId
                             ? { ...item, status: 'Rejected', statusClass: 'status-rejected', icon: '✕' }
                             : item
                     )
                 );
-                
+
                 // Refetch tokens as they should be refunded
-                const tokensResponse = await fetch(`${HOST}:3001/api/student/${studentId}/tokens`);
+                const tokensResponse = await fetch(`${HOST}:${PORT}/api/student/${studentId}/tokens`);
                 const tokensData = await tokensResponse.json();
                 setAvailableTokens(tokensData.tokens);
-                
+
                 // Refresh jobs from server to ensure consistency
                 await fetchPrintJobs(studentId);
             } else {
