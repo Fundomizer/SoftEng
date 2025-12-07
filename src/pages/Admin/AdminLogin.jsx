@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import "../../styles/LoginPageStyle.css"
-import { HOST } from "../../config"
+import { HOST, PORT } from "../../config"
 
 export function AdminLogin() {
     const navigate = useNavigate()
@@ -11,35 +11,42 @@ export function AdminLogin() {
     const [loading, setLoading] = useState(false)
 
     const handleSignIn = async (e) => {
-        e.preventDefault()
-        setError('')
-        setLoading(true)
+        e.preventDefault();
+        setError('');
+        setLoading(true);
 
         try {
-            const response = await fetch(`${HOST}:${PORT}/api/auth/admin/login`, {
+            const response = await fetch(`${HOST}:${PORT}/api/auth`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ adminId, password })
-            })
+                body: JSON.stringify({ id, password }) // ✅ unified field
+            });
 
-            const data = await response.json()
+            const data = await response.json();
 
             if (response.ok) {
-                // Store admin info in sessionStorage
-                sessionStorage.setItem('admin', JSON.stringify(data))
-                navigate('/admin/dashboard')
+                if (data.role === 'student') {
+                    sessionStorage.setItem('student', JSON.stringify(data));
+                    navigate('/student');
+                } else if (data.role === 'admin') {
+                    sessionStorage.setItem('admin', JSON.stringify(data));
+                    navigate('/admin/dashboard');
+                } else {
+                    setError('Unknown user role');
+                }
             } else {
-                setError(data.error || 'Login failed')
+                setError(data.error || 'Login failed');
             }
         } catch (err) {
-            console.error('Admin login error:', err)
-            setError('Connection error. Please try again.')
+            console.error('Login error:', err);
+            setError('Connection error. Please try again.');
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
-    }
+    };
+
 
     return (
         <section>

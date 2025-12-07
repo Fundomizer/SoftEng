@@ -9,7 +9,7 @@ import UploadFile from "../../components/UploadFile";
 import PrintJobCard from "../../components/StudentComponents/PrintJobCard";
 import HistoryItemDesktop from "../../components/StudentComponents/HistoryItemDesktop";
 import HistoryItemMobile from "../../components/StudentComponents/HistoryItemMobile";
-import { HOST } from "../../config";
+import { HOST, PORT } from "../../config";
 
 export const StudentPage = () => {
     const navigate = useNavigate();
@@ -44,6 +44,7 @@ export const StudentPage = () => {
         }
 
         const student = JSON.parse(storedStudent);
+
         setStudentId(student.id);
         setStudentName(student.name);
         setAvailableTokens(student.tokens);

@@ -5,45 +5,56 @@ import "../../styles/LoginPageStyle.css"
 import sluLogo from "../../assets/slu_logo.png"
 import loginIcon from "../../assets/icons/login_icon.png"
 import googleIcon from "../../assets/icons/google_icon.png"
-import { HOST } from "../../config"
+import { HOST, PORT } from "../../config"
 
 export function LoginPage() {
     const navigate = useNavigate()
-    const [studentId, setStudentId] = useState('')
+    const [id, setId] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
 
     const handleLogin = async (e) => {
-        e.preventDefault()
-        setError('')
-        setLoading(true)
+        e.preventDefault();
+        setError('');
+        setLoading(true);
 
         try {
-            const response = await fetch(`${HOST}:${PORT}/api/auth/student/login`, {
+            const response = await fetch(`${HOST}:${PORT}/api/auth`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ studentId, password })
-            })
+                body: JSON.stringify({ id, password }) // ✅ unified field
+            });
 
-            const data = await response.json()
+            const data = await response.json();
+
+            console.log("Response: ", response);
+            console.log("Data: ", data);
+
 
             if (response.ok) {
-                // Store student info in sessionStorage
-                sessionStorage.setItem('student', JSON.stringify(data))
-                navigate('/student')
+                if (data.role === 'student') {
+                    sessionStorage.setItem('student', JSON.stringify(data));
+                    navigate('/student');
+                } else if (data.role === 'admin') {
+                    sessionStorage.setItem('admin', JSON.stringify(data));
+                    navigate('/admin/dashboard');
+                } else {
+                    setError('Unknown user role');
+                }
             } else {
-                setError(data.error || 'Login failed')
+                setError(data.error || 'Login failed');
             }
         } catch (err) {
-            console.error('Login error:', err)
-            setError('Connection error. Please try again.')
+            console.error('Login error:', err);
+            setError('Connection error. Please try again.');
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
-    }
+    };
+
 
     return (
         <section>
@@ -65,8 +76,8 @@ export function LoginPage() {
                             <input
                                 type="text"
                                 placeholder="Enter your student ID"
-                                value={studentId}
-                                onChange={(e) => setStudentId(e.target.value)}
+                                value={id}
+                                onChange={(e) => setId(e.target.value)}
                                 required
                                 style={{
                                     width: '100%',
@@ -107,11 +118,6 @@ export function LoginPage() {
                         <img src={googleIcon} alt="sign in with google" />
                         Sign in with Google
                     </button>
-                    <p style={{ marginTop: '20px', textAlign: 'center' }}>
-                        <Link to="/admin" style={{ color: '#003366', textDecoration: 'underline' }}>
-                            Go to Admin Portal (Testing)
-                        </Link>
-                    </p>
                 </div>
             </div>
         </section>
