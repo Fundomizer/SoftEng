@@ -9,6 +9,7 @@ import UploadFile from "../../components/UploadFile";
 import PrintJobCard from "../../components/StudentComponents/PrintJobCard";
 import HistoryItemDesktop from "../../components/StudentComponents/HistoryItemDesktop";
 import HistoryItemMobile from "../../components/StudentComponents/HistoryItemMobile";
+import { HOST } from "../../config";
 
 export const StudentPage = () => {
     const navigate = useNavigate();
@@ -61,7 +62,7 @@ export const StudentPage = () => {
     // Fetch print jobs from API
     const fetchPrintJobs = async (id) => {
         try {
-            const response = await fetch(`/api/student/${id}/jobs`);
+            const response = await fetch(`${HOST}:3001/api/student/${id}/jobs`);
             const jobs = await response.json();
 
             // Transform jobs for display
@@ -276,7 +277,7 @@ export const StudentPage = () => {
             formData.append('hasImages', hasImages);
             formData.append('tokenCost', estimatedCost);
 
-            const response = await fetch(`/api/student/${studentId}/jobs`, {
+            const response = await fetch(`${HOST}:3001/api/student/${studentId}/jobs`, {
                 method: 'POST',
                 body: formData
             });
@@ -362,7 +363,7 @@ export const StudentPage = () => {
 
         try {
             // Call API to reject the job
-            const response = await fetch(`/api/student/jobs/${itemId}/cancel`, {
+            const response = await fetch(`${HOST}:3001/api/student/jobs/${itemId}/cancel`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -396,7 +397,7 @@ export const StudentPage = () => {
                 );
                 
                 // Refetch tokens as they should be refunded
-                const tokensResponse = await fetch(`/api/student/${studentId}/tokens`);
+                const tokensResponse = await fetch(`${HOST}:3001/api/student/${studentId}/tokens`);
                 const tokensData = await tokensResponse.json();
                 setAvailableTokens(tokensData.tokens);
                 
