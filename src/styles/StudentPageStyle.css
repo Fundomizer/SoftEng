@@ -412,12 +412,6 @@ Using attribute selectors lets us avoid changing the JSX to add className.
     color: #6b7280;
 }
 
-#option-cost {
-    font-size: 0.875rem;
-    color: #6b7280;
-    margin-top: 0.25rem;
-}
-
 /* Submit Button */
 #submit-btn {
     width: 100%;
@@ -493,22 +487,22 @@ Using attribute selectors lets us avoid changing the JSX to add className.
     margin-bottom: 1rem;
 }
 
-#job-000049 {
+.print-job-card.status-pending {
     border-left-color: #ffc107;
     background-color: #fffbf0;
 }
 
-#job-000050 {
+.print-job-card.status-approved {
     border-left-color: #28a745;
     background-color: #f0fdf4;
 }
 
-#job-000051 {
+.print-job-card.status-printed {
     border-left-color: #17a2b8;
     background-color: #f0f9ff;
 }
 
-#job-000054 {
+.print-job-card.status-rejected {
     border-left-color: #dc3545;
     background-color: #fef2f2;
 }
@@ -548,22 +542,22 @@ Using attribute selectors lets us avoid changing the JSX to add className.
     font-weight: 600;
 }
 
-#job-000049 .job-status {
+.print-job-card .job-status.status-pending {
     background-color: #fff3cd;
     color: #856404;
 }
 
-#job-000050 .job-status {
+.print-job-card .job-status.status-approved {
     background-color: #d4edda;
     color: #155724;
 }
 
-#job-000051 .job-status {
+.print-job-card .job-status.status-printed {
     background-color: #d1ecf1;
     color: #0c5460;
 }
 
-#job-000054 .job-status {
+.print-job-card .job-status.status-rejected {
     background-color: #f8d7da;
     color: #721c24;
 }
@@ -600,7 +594,7 @@ Using attribute selectors lets us avoid changing the JSX to add className.
     color: #666;
 }
 
-#job-000054 .rejection-reason {
+.print-job-card .rejection-reason {
     margin-top: 1rem;
     padding: 0.75rem;
     background-color: #fff5f5;
@@ -638,7 +632,7 @@ Using attribute selectors lets us avoid changing the JSX to add className.
     cursor: not-allowed;
 }
 
-#pagination #page-1 {
+#pagination button.active {
     background-color: #ffc107;
     color: #333;
     border-color: #ffc107;
@@ -676,6 +670,7 @@ Using attribute selectors lets us avoid changing the JSX to add className.
         opacity: 0;
         transform: scale(0.9) translateY(-20px);
     }
+
     to {
         opacity: 1;
         transform: scale(1) translateY(0);
@@ -932,6 +927,8 @@ Using attribute selectors lets us avoid changing the JSX to add className.
 /* Table Styles */
 .table-wrapper {
     overflow-x: auto;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 table {
@@ -981,21 +978,25 @@ td {
     font-weight: 600;
 }
 
+.status-badge.status-pending,
 .status-pending {
     background-color: #fff3cd;
     color: #856404;
 }
 
+.status-badge.status-approved,
 .status-approved {
     background-color: #d4edda;
     color: #155724;
 }
 
+.status-badge.status-printed,
 .status-printed {
     background-color: #d1ecf1;
     color: #0c5460;
 }
 
+.status-badge.status-rejected,
 .status-rejected {
     background-color: #f8d7da;
     color: #721c24;
@@ -1044,13 +1045,12 @@ td {
 }
 
 /* Desktop/Mobile visibility helpers */
-/* Desktop/Mobile visibility helpers */
 .desktop-only {
-    display: none;
+    display: block !important;
 }
 
 .mobile-only {
-    display: block;
+    display: none !important;
 }
 
 /* History cards - table-like on desktop, card-like on mobile */
@@ -1058,6 +1058,8 @@ td {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .history-card {
@@ -1143,8 +1145,10 @@ td {
 }
 
 @media (max-width: 768px) {
+
     /* Prevent horizontal scrolling */
-    body, #upload-page {
+    body,
+    #upload-page {
         overflow-x: hidden;
         max-width: 100vw;
     }
@@ -1237,6 +1241,7 @@ td {
         font-size: 0.875rem;
         white-space: nowrap;
         min-width: fit-content;
+
     }
 
     #tab-icon {
@@ -1301,8 +1306,7 @@ td {
         font-size: 0.875rem;
     }
 
-    #option-subtitle,
-    #option-cost {
+    #option-subtitle {
         font-size: 0.75rem;
     }
 
@@ -1426,7 +1430,7 @@ td {
         margin-bottom: 0.75rem;
     }
 
-    .history-card-header > div:first-child {
+    .history-card-header>div:first-child {
         margin-bottom: 0.5rem;
     }
 
@@ -1727,6 +1731,7 @@ td {
         transform: translate(-50%, -24px);
         opacity: 0;
     }
+
     to {
         transform: translate(-50%, 0);
         opacity: 1;

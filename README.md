@@ -1,16 +1,53 @@
-# React + Vite
+# Project setup
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Frontend
 
-Currently, two official plugins are available:
+This is a guide on how to setup this project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Make sure you have the following packages installed (versions in the list might be outdate):
 
-## React Compiler
+- @eslint/js@9.38.0
+- @types/react-dom@19.2.2
+- @types/react@19.2.2
+- @vitejs/plugin-react@5.0.4
+- eslint-plugin-react-hooks@5.2.0
+- eslint-plugin-react-refresh@0.4.24
+- eslint@9.38.0
+- globals@16.4.0
+- react-dom@19.2.0
+- react-router-dom@7.9.5
+- react@19.2.0
+- vite@7.1.11
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+To run the project run the following:
 
-## Expanding the ESLint configuration
+```
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Then go to the link provided. You now have access to the front end of the project
+
+## Backend
+
+This project uses a MySQL database so install "wamp" server or software that can host a MySQL database
+Import the "schema.sql" file in `./database` folder (idk why there's anoter sql file)
+
+Next up create a `.env` file and insert the following:
+
+```env
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=""
+DB_NAME=get_faxed_printing_service
+PORT=3001
+```
+
+Port 3001 will be what port the backend will be serving and where the frontend will be looking for resources
+
+Afterwards run the server use:
+
+```
+npm run server
+```
+
+See [QUICKSTART.md](./QUICKSTART.md) for full guide in setting up the project
