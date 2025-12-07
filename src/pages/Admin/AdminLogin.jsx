@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import "../../styles/LoginPageStyle.css"
-import { HOST, PORT } from "../../config"
+import { API_BASE } from "../../config"
 
 export function AdminLogin() {
     const navigate = useNavigate()
@@ -16,31 +16,25 @@ export function AdminLogin() {
         setLoading(true);
 
         try {
-            const response = await fetch(`${HOST}:${PORT}/api/auth`, {
+            const response = await fetch(`${API_BASE}/api/auth/admin/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ id, password }) // ✅ unified field
+                body: JSON.stringify({ adminId, password })
             });
 
             const data = await response.json();
 
             if (response.ok) {
-                if (data.role === 'student') {
-                    sessionStorage.setItem('student', JSON.stringify(data));
-                    navigate('/student');
-                } else if (data.role === 'admin') {
-                    sessionStorage.setItem('admin', JSON.stringify(data));
-                    navigate('/admin/dashboard');
-                } else {
-                    setError('Unknown user role');
-                }
+                // Store admin info in sessionStorage
+                sessionStorage.setItem('admin', JSON.stringify(data));
+                navigate('/admin/dashboard');
             } else {
                 setError(data.error || 'Login failed');
             }
         } catch (err) {
-            console.error('Login error:', err);
+            console.error('Admin login error:', err);
             setError('Connection error. Please try again.');
         } finally {
             setLoading(false);
