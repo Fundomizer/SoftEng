@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import sluLogo from "../../assets/slu_logo.png"
 import "../../styles/StudentPageStyle.css";
 import StatCard from "../../components/StudentComponents/StatCard";
 import TabButton from "../../components/Tab";
@@ -18,8 +19,8 @@ export const StudentPage = () => {
     const [activeTab, setActiveTab] = useState("upload");
     const [dragActive, setDragActive] = useState(false);
     const [documentName, setDocumentName] = useState("");
-    const [numPages, setNumPages] = useState("");
-    const [numCopies, setNumCopies] = useState("1");
+    const [numPages, setNumPages] = useState(1);
+    const [numCopies, setNumCopies] = useState(1);
     const [colorMode, setColorMode] = useState("bw");
     const [paperSize, setPaperSize] = useState("a4");
     const [hasImages, setHasImages] = useState("no");
@@ -430,7 +431,7 @@ export const StudentPage = () => {
             <header id="header">
                 <div id="header-left">
                     <div id="logo">
-                        <img src="/src/assets/slu_logo.png" alt="SLU-logo" />
+                        <img src={sluLogo} alt="SLU-logo" />
                     </div>
                     <div id="header-text">
                         <h1>Get Faxed: Student Printing Service Portal</h1>
