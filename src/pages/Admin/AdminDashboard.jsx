@@ -41,7 +41,7 @@ export function AdminDashboard() {
 
     const fetchJobs = async (status = null) => {
         try {
-            const url = status ? `/api/admin/jobs?status=${status}` : '/api/admin/jobs';
+            const url = status ? `${HOST}:${PORT}/api/admin/jobs?status=${status}` : `${HOST}:${PORT}/api/admin/jobs`;
             const response = await fetch(url);
             const data = await response.json();
             setJobs(data);
