@@ -114,6 +114,25 @@ app.get('/api/student/:id/tokens', async (req, res) => {
   }
 });
 
+// Get all students' print jobs for global queue view (anonymized)
+app.get('/api/queue/all', async (req, res) => {
+  try {
+    const [jobs] = await db.query(
+      `SELECT id, job_number, document_name, document_filename, num_pages, num_copies,
+              color_mode, paper_size, has_images, token_cost, status, rejection_reason,
+              submitted_at, reviewed_at, student_id
+       FROM print_jobs
+       WHERE status IN ('pending', 'approved')
+       ORDER BY submitted_at ASC`
+    );
+
+    res.json(jobs);
+  } catch (error) {
+    console.error('Get queue error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 // Get student's print jobs (queue)
 app.get('/api/student/:id/jobs', async (req, res) => {
   try {

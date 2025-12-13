@@ -3,7 +3,7 @@
  */
 export default function PrintJobCard({ printJob }) {
     return (
-        <div id={`job-${printJob.id}`} className={`print-job-card ${printJob.statusClass}`}>
+        <div id={`job-${printJob.id}`} className={`print-job-card ${printJob.statusClass} ${printJob.isMyJob ? 'my-job' : ''}`}>
             <div className="job-header">
                 <div className="job-title">
                     <span className="job-icon">{printJob.icon}</span>

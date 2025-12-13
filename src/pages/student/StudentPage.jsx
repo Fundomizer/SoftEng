@@ -64,14 +64,19 @@ export const StudentPage = () => {
     // Fetch print jobs from API
     const fetchPrintJobs = async (id) => {
         try {
-            const response = await fetch(`${HOST}:${PORT}/api/student/${id}/jobs`);
-            const jobs = await response.json();
+            // Fetch personal jobs for history
+            const historyResponse = await fetch(`${HOST}:${PORT}/api/student/${id}/jobs`);
+            const historyJobs = await historyResponse.json();
 
-            // Transform jobs for display
-            const transformedJobs = jobs.map(job => ({
+            // Fetch all jobs for queue
+            const queueResponse = await fetch(`${HOST}:${PORT}/api/queue/all`);
+            const allQueueJobs = await queueResponse.json();
+
+            // Transform history jobs
+            const transformedHistoryJobs = historyJobs.map(job => ({
                 id: job.job_number,
                 title: `Print Job #${job.job_number}`,
-                document: 'Your Document', // Anonymous in queue
+                document: 'Your Document',
                 documentTitle: job.document_name,
                 documentFilename: job.document_filename,
                 status: job.status.charAt(0).toUpperCase() + job.status.slice(1),
@@ -88,11 +93,37 @@ export const StudentPage = () => {
                 reviewed: job.reviewed_at ? new Date(job.reviewed_at).toLocaleString('en-US', {
                     month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
                 }) : null,
-                rejectionReason: job.rejection_reason
+                rejectionReason: job.rejection_reason,
+                isMyJob: true
             }));
 
-            setQueueItems(transformedJobs);
-            setHistoryItems(transformedJobs);
+            // Transform queue jobs (all students)
+            const transformedQueueJobs = allQueueJobs.map(job => ({
+                id: job.job_number,
+                title: `Print Job #${job.job_number}`,
+                document: job.student_id === id ? 'Your Document' : 'Anonymous',
+                documentTitle: job.document_name,
+                documentFilename: job.document_filename,
+                status: job.status.charAt(0).toUpperCase() + job.status.slice(1),
+                statusClass: `status-${job.status}`,
+                icon: getStatusIcon(job.status),
+                pages: job.num_pages,
+                mode: job.color_mode === 'bw' ? 'B&W' : (job.color_mode === 'color' ? 'Color' : job.color_mode),
+                hasImages: job.has_images === 'yes' ? 'Yes' : 'No',
+                tokens: job.token_cost,
+                tokenCost: job.token_cost,
+                submitted: new Date(job.submitted_at).toLocaleString('en-US', {
+                    month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit'
+                }),
+                reviewed: job.reviewed_at ? new Date(job.reviewed_at).toLocaleString('en-US', {
+                    month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+                }) : null,
+                rejectionReason: job.rejection_reason,
+                isMyJob: job.student_id === id
+            }));
+
+            setQueueItems(transformedQueueJobs);
+            setHistoryItems(transformedHistoryJobs);
             setLoading(false);
         } catch (error) {
             console.error('Error fetching jobs:', error);
@@ -618,7 +649,7 @@ export const StudentPage = () => {
                         </div>
                     </div>
                     <p id="section-subtitle">
-                        All pending print requests (Anonymized for privacy)
+                        All pending and approved print requests from all students. Your jobs are highlighted in blue.
                     </p>
 
                     {currentItems.map((item) => (

@@ -487,14 +487,30 @@ Using attribute selectors lets us avoid changing the JSX to add className.
     margin-bottom: 1rem;
 }
 
+.print-job-card.my-job {
+    box-shadow: 0 2px 8px rgba(0, 61, 115, 0.15);
+    border: 2px solid #003d73;
+    border-left: 4px solid #003d73;
+}
+
 .print-job-card.status-pending {
     border-left-color: #ffc107;
     background-color: #fffbf0;
 }
 
+.print-job-card.my-job.status-pending {
+    border-left-color: #003d73;
+    background-color: #f0f7ff;
+}
+
 .print-job-card.status-approved {
     border-left-color: #28a745;
     background-color: #f0fdf4;
+}
+
+.print-job-card.my-job.status-approved {
+    border-left-color: #003d73;
+    background-color: #f0f7ff;
 }
 
 .print-job-card.status-printed {
