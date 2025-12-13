@@ -6,7 +6,7 @@ export default function HistoryItemDesktop({ item, removeFromHistory }) {
         <tr key={item.id}>
             <td>
                 <div className="document-cell">
-                    <span className="document-title">{item.documentTitle}</span>
+                    <span className="document-title">Job #{item.id} - {item.documentTitle}</span>
                     <span className="document-filename">{item.documentFilename}</span>
                 </div>
             </td>

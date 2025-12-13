@@ -123,7 +123,7 @@ app.get('/api/student/:id/jobs', async (req, res) => {
               submitted_at, reviewed_at
        FROM print_jobs
        WHERE student_id = ?
-       ORDER BY submitted_at DESC`,
+       ORDER BY submitted_at ASC`,
       [req.params.id]
     );
 
@@ -256,7 +256,7 @@ app.get('/api/admin/jobs', async (req, res) => {
       params.push(status);
     }
 
-    query += ' ORDER BY pj.submitted_at DESC';
+    query += ' ORDER BY pj.submitted_at ASC';
 
     const [jobs] = await db.query(query, params);
     res.json(jobs);

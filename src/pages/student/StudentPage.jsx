@@ -127,11 +127,14 @@ export const StudentPage = () => {
 
     const estimatedCost = calculateTokenCost();
 
-    // Calculate pagination for queue
-    const totalPages = Math.ceil(queueItems.length / itemsPerPage);
+    // Calculate pagination for queue (filter out printed and rejected jobs)
+    const filteredQueueItems = queueItems.filter(item => 
+        item.status !== 'Printed' && item.status !== 'Rejected'
+    );
+    const totalPages = Math.ceil(filteredQueueItems.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    const currentItems = queueItems.slice(startIndex, endIndex);
+    const currentItems = filteredQueueItems.slice(startIndex, endIndex);
 
     // Calculate pagination for history
     const totalHistoryPages = Math.ceil(historyItems.length / historyItemsPerPage);
@@ -601,10 +604,6 @@ export const StudentPage = () => {
                             <span id="submit-icon">⬆️</span>
                             Submit Print Request
                         </button>
-                        <button id="clear-btn" onClick={clearForm}>
-                            <span>🗑️</span>
-                            Clear Form
-                        </button>
                     </div>
                 </div>
 
@@ -612,9 +611,9 @@ export const StudentPage = () => {
                     <div id="section-header">
                         <h2>Print Queue</h2>
                         <div className="section-info">
-                            <span>Total items: {queueItems.length}</span>
-                            {queueItems.length > 0 && (
-                                <span>• Showing {startIndex + 1}-{Math.min(endIndex, queueItems.length)} of {queueItems.length}</span>
+                            <span>Total items: {filteredQueueItems.length}</span>
+                            {filteredQueueItems.length > 0 && (
+                                <span>• Showing {startIndex + 1}-{Math.min(endIndex, filteredQueueItems.length)} of {filteredQueueItems.length}</span>
                             )}
                         </div>
                     </div>
@@ -626,7 +625,7 @@ export const StudentPage = () => {
                         <PrintJobCard key={item.id} printJob={item} />
                     ))}
 
-                    {queueItems.length === 0 && (
+                    {filteredQueueItems.length === 0 && (
                         <div style={{ textAlign: 'center', padding: '2rem', color: '#666' }}>
                             No items in queue
                         </div>

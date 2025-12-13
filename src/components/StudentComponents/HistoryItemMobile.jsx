@@ -6,7 +6,7 @@ export default function HistoryItemMobile({ item, removeFromHistory }) {
         <div className="history-card" id={`history-${item.id}`}>
             <div className="history-card-header">
                 <div>
-                    <div className="history-document-title">{item.documentTitle}</div>
+                    <div className="history-document-title">Job #{item.id} - {item.documentTitle}</div>
                     <div className="history-document-filename">{item.documentFilename}</div>
                 </div>
                 <span className={`status-badge ${item.statusClass}`}>{item.status}</span>
