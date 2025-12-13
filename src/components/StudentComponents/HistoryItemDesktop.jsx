@@ -3,6 +3,7 @@
  */
 export default function HistoryItemDesktop({ item, removeFromHistory }) {
     return (
+        <>
         <tr key={item.id}>
             <td>
                 <div className="document-cell">
@@ -30,5 +31,15 @@ export default function HistoryItemDesktop({ item, removeFromHistory }) {
                 )}
             </td>
         </tr>
+        {item.status === "Rejected" && item.rejectionReason && (
+            <tr key={`${item.id}-reason`} className="rejection-reason-row">
+                <td colSpan="7">
+                    <div className="rejection-reason">
+                        <strong>Rejection Reason:</strong> {item.rejectionReason}
+                    </div>
+                </td>
+            </tr>
+        )}
+        </>
     );
 }

@@ -98,11 +98,11 @@ INSERT INTO students (user_id, student_id, first_name, last_name, available_toke
 INSERT INTO print_jobs (job_number, student_id, document_name, document_filename, num_pages, num_copies, color_mode, paper_size, has_images, token_cost, status, submitted_at) VALUES 
 ('000049', 1, 'Research Paper - AI Ethics', '20251203_093000_ai-ethics-paper.pdf', 12, 1, 'bw', 'a4', 'yes', 24, 'pending', '2025-12-03 09:30:00'),
 ('000050', 1, 'Assignment 3 - Data Structures', '20251202_142000_assignment3.pdf', 8, 1, 'bw', 'a4', 'no', 8, 'approved', '2025-12-02 14:20:00'),
-('000051', 1, 'Presentation Slides', '20251201_100000_presentation.pdf', 15, 1, 'color', 'a4', 'yes', 60, 'printed', '2025-12-01 10:00:00'),
-('000052', 1, 'Final Exam Notes', '20251203_111500_exam-notes.pdf', 20, 1, 'bw', 'a4', 'no', 20, 'pending', '2025-12-03 11:15:00'),
-('000053', 1, 'Project Proposal', '20251202_164500_project-proposal.pdf', 6, 2, 'color', 'a4', 'yes', 48, 'approved', '2025-12-02 16:45:00'),
-('000054', 1, 'Lab Report - Chemistry', '20251130_110000_chem-lab-report.pdf', 10, 1, 'bw', 'a4', 'yes', 20, 'rejected', '2025-11-30 11:00:00'),
-('000055', 1, 'Thesis Chapter 1', '20251129_090000_thesis-ch1.pdf', 25, 1, 'bw', 'a4', 'yes', 50, 'printed', '2025-11-29 09:00:00'),
+('000051', 2, 'Presentation Slides', '20251201_100000_presentation.pdf', 15, 1, 'color', 'a4', 'yes', 60, 'printed', '2025-12-01 10:00:00'),
+('000052', 2, 'Final Exam Notes', '20251203_111500_exam-notes.pdf', 20, 1, 'bw', 'a4', 'no', 20, 'pending', '2025-12-03 11:15:00'),
+('000053', 3, 'Project Proposal', '20251202_164500_project-proposal.pdf', 6, 2, 'color', 'a4', 'yes', 48, 'approved', '2025-12-02 16:45:00'),
+('000054', 2, 'Lab Report - Chemistry', '20251130_110000_chem-lab-report.pdf', 10, 1, 'bw', 'a4', 'yes', 20, 'rejected', '2025-11-30 11:00:00'),
+('000055', 3, 'Thesis Chapter 1', '20251129_090000_thesis-ch1.pdf', 25, 1, 'bw', 'a4', 'yes', 50, 'printed', '2025-11-29 09:00:00'),
 ('000056', 1, 'Course Outline', '20251128_132000_course-outline.pdf', 4, 1, 'bw', 'a4', 'no', 4, 'rejected', '2025-11-28 13:20:00');
 
 -- Update reviewed jobs

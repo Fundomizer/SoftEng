@@ -38,6 +38,12 @@ export default function HistoryItemMobile({ item, removeFromHistory }) {
                     </button>
                 )}
             </div>
+
+            {item.status === "Rejected" && item.rejectionReason && (
+                <div className="rejection-reason">
+                    <strong>Rejection Reason:</strong> {item.rejectionReason}
+                </div>
+            )}
         </div>
     );
 }
