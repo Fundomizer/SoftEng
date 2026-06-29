@@ -214,6 +214,26 @@ The application has two parts that need to run simultaneously: the backend serve
    ```
 4. **Keep this terminal window open** as well
 
+#### OPTIONAL 
+
+To expose the website and let other LAN devices connect use the following command:
+
+```bash
+npm run dev -- --host
+```
+
+You should see:
+
+```
+  VITE v7.3.6  ready in 280 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: http://192.168.56.1:5173/
+  ➜  Network: http://<LOCAL_IP>:5173/
+  ➜  press h + enter to show help
+
+```
+
 ### Step 3: Access the Application
 
 1. Open your web browser

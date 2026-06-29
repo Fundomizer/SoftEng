@@ -46,6 +46,27 @@ npm run dev
 
 Visit: `http://localhost:5173`
 
+#### Optional
+
+To expose the website and let other LAN devices connect use the following command:
+
+```bash
+npm run dev -- --host
+```
+
+You should see:
+
+```
+  VITE v7.3.6  ready in 280 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: http://192.168.56.1:5173/
+  ➜  Network: http://<LOCAL_IP>:5173/
+  ➜  press h + enter to show help
+
+```
+
+
 ## 🔑 Test Login Credentials
 
 ### Student Account
