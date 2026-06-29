@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import "../../styles/LoginPageStyle.css"
-import { API_BASE } from "../../config"
+import { API_BASE, HOST, PORT } from "../../config"
 
 export function AdminLogin() {
     const navigate = useNavigate()
@@ -16,13 +16,16 @@ export function AdminLogin() {
         setLoading(true);
 
         try {
-            const response = await fetch(`${API_BASE}/api/auth/admin/login`, {
+            const response = await fetch(`${HOST}:${PORT}/api/auth`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ adminId, password })
             });
+
+            console.log("ADMIN: ", JSON.stringify({ adminId, password }));
+            
 
             const data = await response.json();
 
