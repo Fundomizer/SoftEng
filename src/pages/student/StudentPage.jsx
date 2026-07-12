@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import sluLogo from "../../assets/slu_logo.png"
 import "../../styles/StudentPageStyle.css";
-import StatCard from "../../components/StudentComponents/StatCard";
+import StatCard from "../../components/student_components/StatCard";
 import TabButton from "../../components/Tab";
-import InputFormGroup from "../../components/StudentComponents/FormGroup";
-import ButtonFormGroup from "../../components/StudentComponents/ButtonFormGroup";
+import InputFormGroup from "../../components/student_components/FormGroup";
+import ButtonFormGroup from "../../components/student_components/ButtonFormGroup";
 import UploadFile from "../../components/UploadFile";
-import PrintJobCard from "../../components/StudentComponents/PrintJobCard";
-import HistoryItemDesktop from "../../components/StudentComponents/HistoryItemDesktop";
-import HistoryItemMobile from "../../components/StudentComponents/HistoryItemMobile";
+import PrintJobCard from "../../components/student_components/PrintJobCard";
+import HistoryItemDesktop from "../../components/student_components/HistoryItemDesktop";
+import HistoryItemMobile from "../../components/student_components/HistoryItemMobile";
 import { HOST, PORT } from "../../config";
 
 export const StudentPage = () => {

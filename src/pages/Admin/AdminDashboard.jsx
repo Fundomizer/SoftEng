@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import "../../styles/AdminDashboardStyle.css"
 import sluLogo from "../../assets/slu_logo.png"
-import AdminDashboardCard from "../../components/AdminComponents/AdminDashboardCard"
+import AdminDashboardCard from "../../components/admin_components/AdminDashboardCard"
 import TabButton from "../../components/Tab"
 import { HOST, PORT } from "../../config"
 
