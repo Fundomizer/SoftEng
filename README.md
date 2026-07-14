@@ -1,54 +1,78 @@
-# Project setup
+# Get Faxed - Student Printing Service Portal
 
-## Frontend
+A web-based print job management system built for Saint Louis University. Students submit documents for printing and track them through a token-based queue; admins review, approve, reject, and fulfill those requests from a dashboard.
 
-This is a guide on how to setup this project
+## Features
 
-Make sure you have the following packages installed (versions in the list might be outdate):
+**Student Portal**
 
-- @eslint/js@9.38.0
-- @types/react-dom@19.2.2
-- @types/react@19.2.2
-- @vitejs/plugin-react@5.0.4
-- eslint-plugin-react-hooks@5.2.0
-- eslint-plugin-react-refresh@0.4.24
-- eslint@9.38.0
-- globals@16.4.0
-- react-dom@19.2.0
-- react-router-dom@7.9.5
-- react@19.2.0
-- vite@7.1.11
+- Upload documents (PDF, DOC, DOCX) via drag-and-drop
+- Configure print options (B&W/Color, page count, copies, paper size) with real-time token cost estimation
+- Track submissions through a live queue and full print history
+- Cancel pending jobs (tokens are refunded automatically)
 
-To run the project run the following:
+**Admin Dashboard**
 
-```
-npm run dev
-```
+- Real-time stats on job counts by status
+- Approve/reject requests with a required rejection reason
+- View uploaded documents before deciding
+- Mark approved jobs as printed to close out the job lifecycle
 
-Then go to the link provided. You now have access to the front end of the project
+## Tech Stack
 
-## Backend
+- **Frontend:** React 19, React Router, Vite
+- **Backend:** Node.js, Express 5
+- **Database:** MySQL (via `mysql2`), run locally through WAMP
+- **Auth:** bcrypt-hashed passwords
+- **File uploads:** Multer
 
-This project uses a MySQL database, run via **WAMP**. Install it from [wampserver.com](https://www.wampserver.com/en/) and start it (only its MySQL + phpMyAdmin are needed, not Apache).
+## Getting Started
 
-Import `database/get_faxed.sql` via phpMyAdmin ([http://localhost/phpmyadmin/](http://localhost/phpmyadmin/) → Import → Choose File → Go) - this creates the database and seeds it with test accounts.
+You'll need [Node.js](https://nodejs.org/) 16+ and [WAMP](https://www.wampserver.com/en/) installed.
 
-Next, copy `.env.example` to `.env`. Leave `DB_PASSWORD` blank unless you've changed WAMP's default (passwordless) MySQL root user:
-
-```env
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=""
-DB_NAME=get_faxed_printing_service
-PORT=3001
+```bash
+npm install
 ```
 
-Port 3001 will be what port the backend will be serving and where the frontend will be looking for resources
+Then follow the full [User Manual](<./Get%20Faxed%20Printing%20Service%20User%20Manual.md>) for detailed installation steps and in-app usage instructions.
 
-Afterwards run the server use:
+Once configured, run the backend and frontend in separate terminals:
 
+```bash
+npm run server   # Express API on http://localhost:3001
+npm run dev       # Vite dev server on http://localhost:5173
 ```
-npm run server
-```
 
-New here? See [QUICKSTART.md](./QUICKSTART.md) for the full step-by-step setup guide, or the [User Manual](./Get%20Faxed%20Printing%20Service%20User%20Manual.md) for how to use the app once it's running.
+Test accounts are listed in [credentials.md](./credentials.md).
+
+## Available Scripts
+
+| Command             | Description                          |
+| ------------------- | ------------------------------------ |
+| `npm run dev`     | Start the Vite frontend dev server   |
+| `npm run server`  | Start the Express backend API        |
+| `npm run build`   | Build the frontend for production    |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint`    | Run ESLint over the project          |
+
+## Documentation
+
+- [Get Faxed Printing Service User Manual.md](<./Get%20Faxed%20Printing%20Service%20User%20Manual.md>) - full installation guide and usage instructions
+- [credentials.md](./credentials.md) - seeded test accounts
+
+## Contributors
+
+* Abadecio, Robe Roenz S.
+* Policarpio, Julian Eymard M.
+
+* Oway, Jesus Jr. B.
+* Sabado, Eduardo III B.
+
+* Sarmiento, Alfredo Julienne S.
+* Viloria, Faith Arup Glen B.
+
+## License
+
+Copyright (c) 2025-2026 [Copyright Holder Name]. All rights reserved.
+
+This project was developed as part of an academic course requirement at Saint Louis University. See [LICENSE](./LICENSE) for details.

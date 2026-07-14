@@ -367,7 +367,6 @@ Each job card displays:
 
 ---
 
-
 ## Version Information
 
 - **Application Version:** 0.0.0
