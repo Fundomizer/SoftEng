@@ -102,11 +102,6 @@ export function AdminLogin() {
                             {loading ? 'Signing in...' : 'Sign In to Portal'}
                         </button>
                     </form>
-                    <p>or</p>
-                    <button type="button">
-                        <img src="/src/assets/icons/google_icon.png" alt="sign in with google" />
-                        Sign in with Google
-                    </button>
                     <p style={{ marginTop: '20px', textAlign: 'center' }}>
                         <Link to="/" style={{ color: '#003366', textDecoration: 'underline' }}>
                             Go to Student Portal (Testing)

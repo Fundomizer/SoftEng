@@ -29,10 +29,11 @@ Then go to the link provided. You now have access to the front end of the projec
 
 ## Backend
 
-This project uses a MySQL database so install "wamp" server or software that can host a MySQL database
-Import the "schema.sql" file in `./database` folder (idk why there's anoter sql file)
+This project uses a MySQL database, run via **WAMP**. Install it from [wampserver.com](https://www.wampserver.com/en/) and start it (only its MySQL + phpMyAdmin are needed, not Apache).
 
-Next up create a `.env` file and insert the following:
+Import `database/get_faxed.sql` via phpMyAdmin ([http://localhost/phpmyadmin/](http://localhost/phpmyadmin/) → Import → Choose File → Go) - this creates the database and seeds it with test accounts.
+
+Next, copy `.env.example` to `.env`. Leave `DB_PASSWORD` blank unless you've changed WAMP's default (passwordless) MySQL root user:
 
 ```env
 DB_HOST=localhost
@@ -50,4 +51,4 @@ Afterwards run the server use:
 npm run server
 ```
 
-See [QUICKSTART.md](./QUICKSTART.md) for full guide in setting up the project
+New here? See [QUICKSTART.md](./QUICKSTART.md) for the full step-by-step setup guide, or the [User Manual](./Get%20Faxed%20Printing%20Service%20User%20Manual.md) for how to use the app once it's running.

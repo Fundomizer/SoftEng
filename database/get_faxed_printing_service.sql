@@ -77,17 +77,17 @@ CREATE TABLE IF NOT EXISTS print_jobs (
 -- Insert sample data
 
 -- Sample admin user
-INSERT INTO users (email, password_hash, user_type) VALUES 
-('admin@slu.edu', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'admin'); -- password: admin123
+INSERT INTO users (email, password_hash, user_type) VALUES
+('admin@slu.edu', '$2b$10$PebX51fC5AIPRkOHPrd86uzqpqpyDUApNnHzslfnWBOovg3nk0GFi', 'admin'); -- password: admin123
 
-INSERT INTO admins (user_id, admin_id, first_name, last_name) VALUES 
+INSERT INTO admins (user_id, admin_id, first_name, last_name) VALUES
 (1, 'ADM001', 'System', 'Administrator');
 
 -- Sample student users
-INSERT INTO users (email, password_hash, user_type) VALUES 
-('alice.johnson@slu.edu', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'student'), -- password: student123
-('bob.smith@slu.edu', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'student'),
-('carol.williams@slu.edu', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'student');
+INSERT INTO users (email, password_hash, user_type) VALUES
+('alice.johnson@slu.edu', '$2b$10$FryvTS1fO7GNPOMCAg1bEedH4Fqps38WyXtEz1NWU01SMmlGOx9MK', 'student'), -- password: student123
+('bob.smith@slu.edu', '$2b$10$FryvTS1fO7GNPOMCAg1bEedH4Fqps38WyXtEz1NWU01SMmlGOx9MK', 'student'),
+('carol.williams@slu.edu', '$2b$10$FryvTS1fO7GNPOMCAg1bEedH4Fqps38WyXtEz1NWU01SMmlGOx9MK', 'student');
 
 INSERT INTO students (user_id, student_id, first_name, last_name, available_tokens) VALUES 
 (2, '2234534', 'Alice', 'Johnson', 250),

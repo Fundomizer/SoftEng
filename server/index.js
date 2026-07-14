@@ -12,7 +12,23 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(cors());
+// This app is served over a LAN (see QUICKSTART.md's `vite dev --host` step),
+// so the frontend's origin varies by device IP - allow private network
+// ranges and localhost, but not arbitrary public origins.
+const ALLOWED_ORIGIN_PATTERN =
+  /^https?:\/\/(localhost|127\.0\.0\.1|10(?:\.\d{1,3}){3}|172\.(?:1[6-9]|2\d|3[01])(?:\.\d{1,3}){2}|192\.168(?:\.\d{1,3}){2})(?::\d+)?$/;
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || ALLOWED_ORIGIN_PATTERN.test(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  }),
+);
 app.use(express.json());
 
 // ===== Authentication Routes =====
@@ -28,7 +44,7 @@ app.use("/api/admin", adminRoutes);
 
 // Serve uploaded documents
 app.get("/api/documents/:filename", (req, res) => {
-  const filename = req.params.filename;
+  const filename = path.basename(req.params.filename);
   const uploadsPath = path.join(__dirname, "..", "uploads", filename);
 
   // Check if file exists and serve it

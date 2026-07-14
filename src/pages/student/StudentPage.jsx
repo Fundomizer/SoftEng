@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import sluLogo from "../../assets/slu_logo.png";
 import "../../styles/StudentPageStyle.css";
@@ -9,6 +9,16 @@ import QueueTab from "./tabs/QueueTab";
 import HistoryTab from "./tabs/HistoryTab";
 import { HOST, PORT } from "../../config";
 import PolicyModal from "../../components/student_components/PolicyModal";
+
+const getStatusIcon = (status) => {
+  const icons = {
+    pending: "⏱",
+    approved: "✓",
+    printed: "🖨",
+    rejected: "✕",
+  };
+  return icons[status] || "?";
+};
 
 export const StudentPage = () => {
   const navigate = useNavigate();
@@ -31,36 +41,15 @@ export const StudentPage = () => {
   const [availableTokens, setAvailableTokens] = useState(250);
   const [queueItems, setQueueItems] = useState([]);
   const [historyItems, setHistoryItems] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-  // Fetch student data on mount
-  useEffect(() => {
-    // Get student info from sessionStorage
-    const storedStudent = sessionStorage.getItem("student");
-    if (!storedStudent) {
-      navigate("/");
-      return;
-    }
-
-    const student = JSON.parse(storedStudent);
-
-    setStudentId(student.id);
-    setStudentName(student.name);
-    setAvailableTokens(student.tokens);
-
-    // Fetch print jobs
-    fetchPrintJobs(student.id);
-
-    // Auto-refresh every 30 seconds
-    const refreshInterval = setInterval(() => {
-      fetchPrintJobs(student.id);
-    }, 5000);
-
-    return () => clearInterval(refreshInterval);
-  }, [navigate]);
+  // Show notification helper
+  const showNotification = useCallback((message, type = "success") => {
+    setNotification({ message, type });
+    setTimeout(() => setNotification(null), 3000);
+  }, []);
 
   // Fetch print jobs from API
-  const fetchPrintJobs = async (id) => {
+  const fetchPrintJobs = useCallback(async (id) => {
     try {
       // Fetch personal jobs for history
       const historyResponse = await fetch(
@@ -152,29 +141,37 @@ export const StudentPage = () => {
 
       setQueueItems(transformedQueueJobs);
       setHistoryItems(transformedHistoryJobs);
-      setLoading(false);
     } catch (error) {
       console.error("Error fetching jobs:", error);
       showNotification("Failed to load print jobs", "error");
-      setLoading(false);
     }
-  };
+  }, [showNotification]);
 
-  const getStatusIcon = (status) => {
-    const icons = {
-      pending: "⏱",
-      approved: "✓",
-      printed: "🖨",
-      rejected: "✕",
-    };
-    return icons[status] || "?";
-  };
+  // Fetch student data on mount
+  useEffect(() => {
+    // Get student info from sessionStorage
+    const storedStudent = sessionStorage.getItem("student");
+    if (!storedStudent) {
+      navigate("/");
+      return;
+    }
 
-  // Show notification helper
-  const showNotification = (message, type = "success") => {
-    setNotification({ message, type });
-    setTimeout(() => setNotification(null), 3000);
-  };
+    const student = JSON.parse(storedStudent);
+
+    setStudentId(student.id);
+    setStudentName(student.name);
+    setAvailableTokens(student.tokens);
+
+    // Fetch print jobs
+    fetchPrintJobs(student.id);
+
+    // Auto-refresh every 30 seconds
+    const refreshInterval = setInterval(() => {
+      fetchPrintJobs(student.id);
+    }, 5000);
+
+    return () => clearInterval(refreshInterval);
+  }, [navigate, fetchPrintJobs]);
 
   // Calculate token cost in real-time
   const calculateTokenCost = () => {
@@ -408,30 +405,6 @@ export const StudentPage = () => {
     showNotification("Print request cancelled", "info");
   };
 
-  // Example function to add a new item to the queue
-  const addToQueue = (newItem) => {
-    setQueueItems([...queueItems, newItem]);
-    // If adding an item and we're on the last page, stay there
-    // Otherwise the new item will appear on a new page automatically
-  };
-
-  // Example function to remove an item from the queue
-  const removeFromQueue = (itemId) => {
-    const newItems = queueItems.filter((item) => item.id !== itemId);
-    setQueueItems(newItems);
-    showNotification("Item removed from queue", "info");
-    // Adjust current page if needed
-    const newTotalPages = Math.ceil(newItems.length / itemsPerPage);
-    if (currentPage > newTotalPages && newTotalPages > 0) {
-      setCurrentPage(newTotalPages);
-    }
-  };
-
-  // Example function to add a new item to the history
-  const addToHistory = (newItem) => {
-    setHistoryItems([newItem, ...historyItems]); // Add to beginning
-  };
-
   // Cancel/Reject a print job from history
   const removeFromHistory = async (itemId) => {
     if (!studentId) {
@@ -514,18 +487,6 @@ export const StudentPage = () => {
         "error",
       );
     }
-  };
-
-  // Clear form
-  const clearForm = () => {
-    setSelectedFile(null);
-    setDocumentName("");
-    setNumPages("");
-    setNumCopies("1");
-    setColorMode("bw");
-    setPaperSize("a4");
-    setHasImages("no");
-    showNotification("Form cleared", "info");
   };
 
   return (

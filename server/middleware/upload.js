@@ -17,7 +17,8 @@ const storage = multer.diskStorage({
       .replace(/[-:]/g, "")
       .replace("T", "_")
       .split(".")[0];
-    cb(null, dateStr + "_" + file.originalname);
+    const safeName = path.basename(file.originalname);
+    cb(null, dateStr + "_" + safeName);
   },
 });
 
