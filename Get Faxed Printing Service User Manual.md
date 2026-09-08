@@ -9,8 +9,40 @@
 5. [Starting the Application](#starting-the-application)
 6. [User Guide - Student Portal](#user-guide---student-portal)
 7. [User Guide - Admin Dashboard](#user-guide---admin-dashboard)
-8. [Troubleshooting](#troubleshooting)
-9. [FAQ](#faq)
+
+## Quick Start
+
+Already have Node.js and WAMP installed? Here's the fastest path to a running app:
+
+1. **Start WampServer** and wait for its tray icon to turn green (all services running). We only need its MySQL + phpMyAdmin - Apache isn't used by this project.
+2. **Import the database** via phpMyAdmin:
+
+   - Open [http://localhost/phpmyadmin/](http://localhost/phpmyadmin/)
+   - Click **Import** → **Choose File** → select `database/get_faxed.sql` from the project folder → click **Go**
+3. **Install dependencies and configure your `.env`:**
+
+   ```bash
+   npm install
+   cp .env.example .env
+   ```
+
+   (Windows PowerShell: `Copy-Item .env.example .env`)
+
+   Leave `DB_PASSWORD` blank if you haven't changed WAMP's default root password.
+4. **Start the backend** (Terminal 1):
+
+   ```bash
+   npm run server
+   ```
+5. **Start the frontend** (Terminal 2):
+
+   ```bash
+   npm run dev
+   ```
+
+Then open **http://localhost:5173/** in your browser. Log in with a test account from [credentials.md](./credentials.md) (e.g. Student ID `2234534`, password `student123`).
+
+Stuck? Jump to [Troubleshooting](#troubleshooting), or read the detailed walkthrough below.
 
 ---
 
@@ -39,76 +71,37 @@ The **SLU Print Service Portal** is a web-based printing management system desig
 
 ---
 
-## System Requirements
-
-Before installing the application, ensure your computer meets these requirements:
+## System Requirement
 
 ### Required Software:
 
 - **Node.js** (version 16 or higher) - [Download](https://nodejs.org/)
-- **MySQL Server** (version 8.0 or higher) - [Download](https://dev.mysql.com/downloads/)
-- **Web Browser** (Chrome, Firefox, Edge, or Safari)
-
-### Recommended:
-
-- **Git** - [Download](https://git-scm.com/)
-- **Visual Studio Code** or any code editor
-- At least **2GB of free RAM**
-- At least **500MB of free disk space**
-
-### Operating Systems:
-
-- Windows 10/11
-- macOS 10.15+
-- Linux (Ubuntu 18.04+, Fedora, etc.)
+- **WAMP** (bundles Apache, MySQL, and phpMyAdmin) - [Download](https://www.wampserver.com/en/)
 
 ---
 
 ## Installation Guide
-
-Follow these steps carefully to install the application from scratch.
 
 ### Step 1: Install Node.js
 
 1. Go to [https://nodejs.org/](https://nodejs.org/)
 2. Download the **LTS (Long Term Support)** version
 3. Run the installer and follow the installation wizard
-4. After installation, verify by opening a terminal/command prompt and typing:
+4. Verify by opening a terminal/command prompt and typing:
+
    ```bash
    node --version
    npm --version
    ```
 
-   Both commands should display version numbers.
+### Step 2: Install WAMP
 
-### Step 2: Install MySQL
+1. Go to [https://www.wampserver.com/en/](https://www.wampserver.com/en/)
+2. Download the version matching your system (32-bit or 64-bit)
+3. Run the installer and follow the wizard
+4. Launch **WampServer** from the Start Menu
 
-1. Go to [https://dev.mysql.com/downloads/mysql/](https://dev.mysql.com/downloads/mysql/)
-2. Download MySQL Community Server for your operating system
-3. Run the installer:
-   - **Windows:** Use MySQL Installer and select "Developer Default"
-   - **macOS:** Use the DMG installer
-   - **Linux:** Follow package manager instructions
-4. During installation:
-   - Set a **root password** (remember this!)
-   - Choose "Use Legacy Authentication Method" if prompted
-   - Install MySQL Workbench (recommended for easier management)
-
-### Step 3: Get the Project Code
-
-If you have the project as a ZIP file:
-
-1. Extract the ZIP file to your desired location
-2. Open a terminal/command prompt in that folder
-
-If you're using Git:
-
-```bash
-git clone <repository-url>
-cd SoftEng
-```
-
-### Step 4: Install Project Dependencies
+### Step 3: Install Project Dependencies
 
 1. Open a terminal/command prompt in the project folder
 2. Run the following command to install all required packages:
@@ -123,34 +116,35 @@ cd SoftEng
 
 ### Step 1: Set Up the Database
 
-#### Option A: Using MySQL Workbench
+Make sure **WampServer is running** (tray icon green, or at least the MySQL service started) before doing this.
 
-1. Open **MySQL Workbench**
-2. Click on your local MySQL connection (usually "Local instance MySQL80")
-3. Enter your root password
-4. Go to **File** → **Open SQL Script**
-5. Navigate to your project folder and open:
-   ```
-   database/get_faxed.sql
-   ```
-6. Click the **lightning bolt icon** (⚡) to execute the script
-7. You should see a message confirming the database was created successfully
+#### Option A: Using phpMyAdmin (recommended)
 
-#### Option B: Using Command Line
+1. Open your browser and go to [http://localhost/phpmyadmin/](http://localhost/phpmyadmin/) (or left-click the WAMP tray icon → **phpMyAdmin**)
+2. Log in with username `root` and your MySQL password (blank by default on a fresh WAMP install)
+3. Click the **Import** tab at the top
+4. Click **Choose File** and select `database/get_faxed.sql` from your project folder
+5. Scroll down and click **Go**
+6. You should see a success message, and a new `get_faxed_printing_service` database will appear in the left sidebar
 
-1. Open a terminal/command prompt
-2. Navigate to your project folder
-3. Run the following command:
-   ```bash
-   mysql -u root -p < database/get_faxed.sql
+#### Option B: Using WAMP's MySQL Console
+
+1. Left-click the WAMP tray icon → **MySQL** → **MySQL console**
+2. Enter your root password when prompted (press Enter if blank)
+3. At the `mysql>` prompt, run:
+
+   ```sql
+   source database/get_faxed.sql;
    ```
-4. Enter your MySQL root password when prompted
+
+   Use the full path to the file if your console doesn't open in the project folder, e.g. `source D:/School/.../SoftEng/database/get_faxed.sql;`
+4. You should see a series of `Query OK` messages confirming the tables and sample data were created
 
 ### Step 2: Configure Database Connection
 
-1. In your project folder, create a new file called `.env` (note the dot at the beginning)
+1. Copy `.env.example` to a new file called `.env` (note the dot at the beginning)
 2. Open the `.env` file in a text editor
-3. Add the following configuration (adjust values as needed):
+3. Fill in your MySQL password:
    ```env
    DB_HOST=localhost
    DB_PORT=3306
@@ -159,30 +153,16 @@ cd SoftEng
    DB_NAME=get_faxed_printing_service
    PORT=3001
    ```
-4. **Important:** Replace `YOUR_MYSQL_PASSWORD` with your actual MySQL root password
-5. Save the file
+4. **Important:** Replace `YOUR_MYSQL_PASSWORD` with your actual MySQL root password - leave it blank (`DB_PASSWORD=`) if you're on a fresh WAMP install, since its MySQL root user has no password by default
+5. Save the file. `.env` is gitignored, so it stays local to your machine.
 
-### Step 3: Create Uploads Folder (Optional when upload folder exists in application folder)
+### Step 3: Uploads Folder
 
-The application needs a folder to store uploaded documents:
-
-**Windows (PowerShell):**
-
-```powershell
-New-Item -ItemType Directory -Path "uploads" -Force
-```
-
-**macOS/Linux (Terminal):**
-
-```bash
-mkdir -p uploads
-```
+The `uploads/` folder (where submitted documents are stored) is already part of the project - no setup needed.
 
 ---
 
-## Starting the Application
-
-The application has two parts that need to run simultaneously: the backend server and the frontend interface.
+## Starting the App
 
 ### Step 1: Start the Backend Server
 
@@ -194,7 +174,6 @@ The application has two parts that need to run simultaneously: the backend serve
 3. You should see:
    ```
    Server running on http://localhost:3001
-   Database connected successfully
    ```
 4. **Keep this terminal window open** - the server needs to stay running
 
@@ -214,24 +193,10 @@ The application has two parts that need to run simultaneously: the backend serve
    ```
 4. **Keep this terminal window open** as well
 
-#### OPTIONAL 
-
 To expose the website and let other LAN devices connect use the following command:
 
 ```bash
 npm run dev -- --host
-```
-
-You should see:
-
-```
-  VITE v7.3.6  ready in 280 ms
-
-  ➜  Local:   http://localhost:5173/
-  ➜  Network: http://192.168.56.1:5173/
-  ➜  Network: http://<LOCAL_IP>:5173/
-  ➜  press h + enter to show help
-
 ```
 
 ### Step 3: Access the Application
@@ -244,13 +209,6 @@ You should see:
 
 ## User Guide - Student Portal
 
-### Logging In
-
-1. Go to **http://localhost:5173/**
-2. Enter your **Student ID**
-3. Enter your **Password**
-4. Click **Login**
-
 #### Test Accounts:
 
 - **Student ID:** `2234534` | **Password:** `student123` | **Name:** Alice Johnson | **Tokens:** 250
@@ -259,15 +217,9 @@ You should see:
 
 ### Dashboard Overview
 
-After logging in, you'll see three main sections at the top:
-
-- **Available Tokens:** Your current token balance
-- **Pending Jobs:** Number of print jobs waiting for admin approval
-- **Printed Jobs:** Number of successfully completed print jobs
-
 ### Uploading and Submitting a Print Job
 
-1. **Click the "Upload" tab** (should be selected by default)
+1. **Click the "Upload" tab**
 2. **Upload Your Document:**
 
    - **Drag and drop** your file into the upload area, OR
@@ -335,12 +287,6 @@ After logging in, you'll see three main sections at the top:
 
    - Use the page numbers at the bottom to browse through your history
    - 10 items are shown per page
-
-### Logging Out
-
-1. Click the **"Logout"** button in the top-right corner
-2. Confirm logout in the popup
-3. You'll be redirected to the login page
 
 ---
 
@@ -418,98 +364,6 @@ Each job card displays:
 
 - After physically printing the document, click **"Mark as Printed"**
 - The job moves to the "Printed" tab
-- This completes the print job lifecycle
-
-### Best Practices for Admins
-
-1. **Review documents promptly** - Students are waiting for approval
-2. **Provide clear rejection reasons** - Help students understand what went wrong
-3. **Verify file content** - Always view the document before approving
-4. **Check print settings** - Ensure pages, color mode, and copies match the document
-5. **Mark as printed immediately** - Keep the system updated after printing
-
-### Logging Out
-
-1. Click the **profile icon** in the top-right corner
-2. Click **"Logout"**
-3. Confirm logout in the popup
-
----
-
-## Troubleshooting
-
-### Issue: "Cannot connect to database"
-
-**Solution:**
-
-1. Make sure MySQL is running:
-   - **Windows:** Check Services (search "Services" in Start menu)
-   - **macOS/Linux:** Run `sudo systemctl status mysql`
-2. Verify your `.env` file has correct database credentials
-3. Test MySQL connection:
-   ```bash
-   mysql -u root -p
-   ```
-
-### Issue: "Port 3001 already in use"
-
-**Solution:**
-
-1. Close any other programs using port 3001
-2. Or, change the PORT in `.env` file to a different number (e.g., 3002)
-3. Restart the server
-
-### Issue: "Module not found" errors
-
-**Solution:**
-
-```bash
-rm -rf node_modules package-lock.json
-npm install
-```
-
-### Issue: File uploads not working
-
-**Solution:**
-
-1. Check that the `uploads/` folder exists in your project directory
-2. Ensure the folder has write permissions:
-   - **Windows:** Right-click folder → Properties → Security
-   - **macOS/Linux:** Run `chmod 755 uploads/`
-
-### Issue: "ECONNREFUSED" error on frontend
-
-**Solution:**
-
-1. Make sure the backend server is running (`npm run server`)
-2. Check that the server is on port 3001
-3. Verify `src/config.js` has correct HOST and PORT settings
-
-### Issue: Database not created/tables missing
-
-**Solution:**
-
-1. Delete the existing database (if any):
-   ```sql
-   DROP DATABASE IF EXISTS get_faxed_printing_service;
-   ```
-2. Re-run the SQL script:
-   ```bash
-   mysql -u root -p < database/get_faxed.sql
-   ```
-
-### Issue: Frontend shows blank page
-
-**Solution:**
-
-1. Clear browser cache (Ctrl+Shift+Delete)
-2. Check browser console for errors (F12)
-3. Restart the frontend server:
-   ```bash
-   # Stop the server (Ctrl+C)
-   npm run dev
-   ```
-
 
 ---
 
@@ -517,6 +371,5 @@ npm install
 
 - **Application Version:** 0.0.0
 - **Node.js Required:** 16+
-- **MySQL Required:** 8.0+
+- **WAMP Required:** any version bundling MySQL 8.0+
 - **React Version:** 19.1.1
-- **Last Updated:** December 2025

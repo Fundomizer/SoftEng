@@ -1,421 +1,429 @@
 .admin-dashboard {
-    background-color: #ffffff;
-    min-height: 100vh;
-    width: 100%;
+  background-color: #ffffff;
+  min-height: 100vh;
+  width: 100%;
 }
 
 .admin-dashboard__header {
-    background-color: #003366;
-    color: white;
-    padding: 0.75rem 1re;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    justify-content: space-between;
+  background-color: #003366;
+  color: white;
+  padding: 0.75rem 1re;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: space-between;
 }
 
 .admin-dashboard__header-left {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .admin-dashboard__header-right {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding-left: 25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-left: 25rem;
 }
 
 .admin-dashboard__counter {
-    background-color: transparent;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 0.7rem 0.8rem;
-    border-radius: 4px;
-    font-size: 0.85rem;
-    width: 5rem;
-    margin-top: 1rem;
-    border: 1px solid #FFD700;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.7rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  width: 5rem;
+  margin-top: 1rem;
+  border: 1px solid #ffd700;
 }
 
 .admin-dashboard__logout-btn {
-    background-color: #ff4444;
-    color: #ffffff;
-    border: 1px solid #ff4444;
-    padding: 0.7rem 0.75rem;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: background-color 0.2s, color 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    width: 15rem;
+  background-color: #ff4444;
+  color: #ffffff;
+  border: 1px solid #ff4444;
+  padding: 0.7rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: 15rem;
 }
 
 .admin-dashboard__logout-btn:hover {
-    background-color: #ff4444;
-    color: white;
+  background-color: #ff4444;
+  color: white;
 }
 
 .admin-dashboard__header img {
-    height: 80px;
-    width: auto;
+  height: 80px;
+  width: auto;
 }
 
 .admin-dashboard__header h1 {
-    margin: 0;
-    font-size: 1.1rem;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
 }
 
 .admin-dashboard__content {
-    padding: 3rem 0.5rem;
-    max-width: 100%;
-    margin: 0 auto;
+  padding: 3rem 0.5rem;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .admin-dashboard__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
 }
 
 .admin-dashboard__card {
-    background-color: #ffffff;
-    border: 1px solid #E2E8F0;
-    border-radius: 8px;
-    padding: 1.25rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .admin-dashboard__card h3 {
-    color: #003366;
-    font-size: 1.1rem;
-    margin-bottom: 0.75rem;
+  color: #003366;
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
 }
 
 .admin-dashboard__card p {
-    color: #717182;
-    font-size: 0.85rem;
-    line-height: 1.4;
+  color: #717182;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.admin-dashboard__card div {
+  font-size: "2rem";
+  font-weight: "bold";
+  color: "#003366";
+  margin-top: "1rem";
 }
 
 /* Tabs - Exact Copy from Student Dashboard */
 #tabs {
-    display: flex;
-    gap: 0.5rem;
-    padding: 0 2rem;
-    max-width: 1400px;
-    margin: 0 auto;
+  display: flex;
+  gap: 0.5rem;
+  padding: 0 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 #tab-btn {
-    background: white;
-    background-color: white;
-    border: 1px solid #d1d5db;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px 8px 0 0;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    color: #6b7280;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: all 0.2s;
-    border-bottom: 2px solid transparent;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: white;
+  background-color: white;
+  border: 1px solid #d1d5db;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px 8px 0 0;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+  border-bottom: 2px solid transparent;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 #tab-btn:hover {
-    color: #003d73;
-    background-color: #f9fafb;
+  color: #003d73;
+  background-color: #f9fafb;
 }
 
 #tab-btn.active {
-    background-color: #003d73;
-    color: white;
+  background-color: #003d73;
+  color: white;
 }
 
 #tab-icon {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
 /* Content wrapper to match student dashboard */
 .admin-dashboard__tab-content {
-    background: white;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 2rem;
-    border-radius: 0 8px 8px 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: white;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  border-radius: 0 8px 8px 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 /* Logout Confirmation Popup */
 .admin-dashboard__overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 .admin-dashboard__popup {
-    background-color: white;
-    border-radius: 8px;
-    padding: 2rem;
-    max-width: 400px;
-    width: 90%;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background-color: white;
+  border-radius: 8px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .admin-dashboard__popup h3 {
-    color: #003366;
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-    margin-top: 0;
+  color: #003366;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  margin-top: 0;
 }
 
 .admin-dashboard__popup p {
-    color: #717182;
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
+  color: #717182;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .admin-dashboard__popup-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: flex-end;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
 }
 
 .admin-dashboard__confirm-btn,
 .admin-dashboard__cancel-btn {
-    padding: 0.75rem 1.5rem;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
 }
 
 .admin-dashboard__confirm-btn {
-    background-color: #ff4444;
-    color: white;
+  background-color: #ff4444;
+  color: white;
 }
 
 .admin-dashboard__confirm-btn:hover {
-    background-color: #cc0000;
+  background-color: #cc0000;
 }
 
 .admin-dashboard__cancel-btn {
-    background-color: #E2E8F0;
-    color: #003366;
+  background-color: #e2e8f0;
+  color: #003366;
 }
 
 .admin-dashboard__cancel-btn:hover {
-    background-color: #CBD5E0;
+  background-color: #cbd5e0;
 }
 
 /* Tab Section Titles */
 .admin-dashboard__section-title {
-    color: #000000;
+  color: #000000;
 }
 
 .admin-dashboard__section-description {
-    color: #6b7280;
-    font-size: 0.9rem;
-    margin-top: 0.5rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
 }
 
 /* Loading and Empty States */
 .admin-dashboard__loading,
 .admin-dashboard__empty-state {
-    text-align: center;
-    padding: 2rem;
+  text-align: center;
+  padding: 2rem;
 }
 
 .admin-dashboard__empty-state {
-    color: #666;
+  color: #666;
 }
 
 /* Job Cards */
 .admin-dashboard__job-card {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    background-color: #ffffff;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background-color: #ffffff;
 }
 
 .admin-dashboard__job-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
 }
 
 .admin-dashboard__job-title {
-    color: #003d73;
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+  color: #003d73;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
 }
 
 .admin-dashboard__job-filename {
-    color: #374151;
-    font-size: 0.95rem;
-    margin-bottom: 0.75rem;
+  color: #374151;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
 }
 
 .admin-dashboard__job-student {
-    color: #6b7280;
-    font-size: 0.9rem;
+  color: #6b7280;
+  font-size: 0.9rem;
 }
 
 .admin-dashboard__job-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
 }
 
 .admin-dashboard__job-action-row {
-    display: flex;
-    gap: 0.5rem;
-    justify-content: flex-end;
-    width: 212.65px;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  width: 212.65px;
 }
 
 /* Job Action Buttons */
 .admin-dashboard__btn-view {
-    width: 212.65px;
-    height: 36px;
-    padding: 0.5rem 1rem;
-    background-color: white;
-    color: #003d73;
-    border: 1px solid #003d73;
-    border-radius: 8px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
+  width: 212.65px;
+  height: 36px;
+  padding: 0.5rem 1rem;
+  background-color: white;
+  color: #003d73;
+  border: 1px solid #003d73;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
 .admin-dashboard__btn-view:hover {
-    background-color: #f0f9ff;
+  background-color: #f0f9ff;
 }
 
 .admin-dashboard__btn-approve {
-    width: 103.825px;
-    height: 36px;
-    padding: 0.5rem 1rem;
-    background-color: #10b981;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s;
+  width: 103.825px;
+  height: 36px;
+  padding: 0.5rem 1rem;
+  background-color: #10b981;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .admin-dashboard__btn-approve:hover {
-    background-color: #059669;
+  background-color: #059669;
 }
 
 .admin-dashboard__btn-reject {
-    width: 103.825px;
-    height: 36px;
-    padding: 0.5rem 1rem;
-    background-color: #ef4444;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s;
+  width: 103.825px;
+  height: 36px;
+  padding: 0.5rem 1rem;
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .admin-dashboard__btn-reject:hover {
-    background-color: #dc2626;
+  background-color: #dc2626;
 }
 
 .admin-dashboard__btn-printed {
-    width: 212.65px;
-    height: 36px;
-    padding: 0.5rem 1rem;
-    background-color: #003366;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s;
+  width: 212.65px;
+  height: 36px;
+  padding: 0.5rem 1rem;
+  background-color: #003366;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .admin-dashboard__btn-printed:hover {
-    background-color: #002244;
+  background-color: #002244;
 }
 
 /* Job Details Grid */
 .admin-dashboard__job-details {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 1rem;
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid #f3f4f6;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f3f4f6;
 }
 
 .admin-dashboard__detail-label {
-    color: #9ca3af;
-    font-size: 0.8rem;
-    margin-bottom: 0.25rem;
+  color: #9ca3af;
+  font-size: 0.8rem;
+  margin-bottom: 0.25rem;
 }
 
 .admin-dashboard__detail-value {
-    color: #374151;
-    font-size: 0.9rem;
-    font-weight: 500;
+  color: #374151;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 /* History Status Badge */
 .admin-dashboard__history-header {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .admin-dashboard__status-badge {
-    margin-top: 0.5rem;
-    padding: 0.5rem;
-    border-radius: 4px;
-    font-size: 0.875rem;
-    font-weight: 500;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
 }
 
 .admin-dashboard__status-badge--printed {
-    background-color: #d1fae5;
-    color: #065f46;
+  background-color: #d1fae5;
+  color: #065f46;
 }
 
 .admin-dashboard__status-badge--rejected {
-    background-color: #fee2e2;
-    color: #991b1b;
+  background-color: #fee2e2;
+  color: #991b1b;
 }

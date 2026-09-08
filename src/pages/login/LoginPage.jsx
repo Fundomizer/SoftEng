@@ -4,7 +4,6 @@ import { TextInput } from "../../components/TextInput"
 import "../../styles/LoginPageStyle.css"
 import sluLogo from "../../assets/slu_logo.png"
 import loginIcon from "../../assets/icons/login_icon.png"
-import googleIcon from "../../assets/icons/google_icon.png"
 import { HOST, PORT } from "../../config"
 
 export function LoginPage() {
@@ -113,11 +112,6 @@ export function LoginPage() {
                             {loading ? 'Signing in...' : 'Sign In to Portal'}
                         </button>
                     </form>
-                    <p>or</p>
-                    <button type="button">
-                        <img src={googleIcon} alt="sign in with google" />
-                        Sign in with Google
-                    </button>
                 </div>
             </div>
         </section>
